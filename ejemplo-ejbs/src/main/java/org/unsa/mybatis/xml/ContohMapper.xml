@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.unsa.mybatis.mapper.ContohMapper">
+
+	<resultMap id="ContohMap" type="org.unsa.mybatis.bean.Contoh">
+		<id column="nama" property="nama" jdbcType="VARCHAR" />
+		<result column="alamat" property="alamat" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="save" parameterType="org.unsa.mybatis.bean.Contoh">
+		insert into contoh (nama, alamat)
+		values (#{nama}, #{alamat})
+	</insert>
+
+	<update id="update" parameterType="org.unsa.mybatis.bean.Contoh">
+		update contoh
+		set alamat = #{alamat}
+		where nama = #{nama}
+	</update>
+
+</mapper>

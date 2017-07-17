@@ -1,0 +1,4 @@
+org\camunda\EjbJavaDelegate.class
+org\unsa\controller\Personal.class
+org\camunda\EjbProcessStarter.class
+org\unsa\ejemplo\HelloServlet.class
