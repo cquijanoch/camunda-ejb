@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.unsa.mybatis.mapper.BandejaMesaPartesMapper">
+
+
+	<insert id="save" parameterType="org.unsa.mybatis.bean.BandejaMesaPartes">
+		insert into bandeja_mesa_partes (estado, id_requerimiento, detalle)
+		values (#{estado}, #{requerimientoId},#{detalle})
+	</insert>
+	
+	<select id="getAll" resultType="org.unsa.mybatis.bean.BandejaMesaPartesRequerimiento">
+		SELECT  bm.id_bandeja_mesa id, 
+				bm.estado estado,
+				bm.detalle detalle,
+				r.id_requerimiento requerimientoId,
+				r.asunto requerimientoAsunto,
+				u.id_usuario usuarioId,
+				u.nombre usuarioNombre,
+				u.dni usuarioDni				
+		 
+		FROM usuario u 
+		INNER JOIN requerimiento r
+		ON u.id_usuario = r.id_usuario
+		INNER JOIN bandeja_mesa_partes bm
+		ON r.id_requerimiento = bm.id_requerimiento
+	</select>
+
+</mapper>
