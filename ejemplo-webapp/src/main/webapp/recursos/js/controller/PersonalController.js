@@ -63,7 +63,18 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
     };
     
     $scope.aprobarReq = function(f){
-    	$scope.reqActual.estado = f;    	
+    	
+    	$scope.reqActual.estado = f;    
+    	delete $scope.reqActual['i'];
+    	UserService.add("resources/aprobarRequisito", $scope.reqActual).then(
+				function(response){
+					console.log("se aprobo el requerimiento");
+				},
+				function(error){
+					alert('Error');
+				}
+		);
+    	    	
     };
     
     
