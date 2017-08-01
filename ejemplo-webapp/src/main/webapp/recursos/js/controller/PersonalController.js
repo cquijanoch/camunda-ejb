@@ -1,103 +1,86 @@
 app.controller("PersonalController",function($scope,UserService,modal,NgTableParams){
-	$scope.personas = {};
-	$scope.estados = [{id: 'A', title: "Activo"}, {id: 'E', title: "Cesado"}];
-	var params = {count: 10};
-    var setting = {counts: []};
-    $scope.miTabla = new NgTableParams(params, setting);
-    $scope.bancos= {
-		    id:"",
-    		nombre:""
-	      };
     
-    $scope.persona= {
-		    idPersona:"",
-		    codigo:"",
-		    dni: "",
-		    nombre: "",
-		    apellidos: "",
-		    direccion: "",
-		    fecha_nacimiento: "",
-		    existe:false
-	      };
-    $scope.trabajador= {
-		    
-		    idTrabajador: "",
-		    cuspp: "",
-		    tipo_pension: "",
-		    carga_familiar: "",
-		    cargo: "",
-		    fecha_ingreso_planilla: "",
-		    sueldo_bruto: "",
-		    nro_cuenta_haberes: "",
-		    banco_id: "",
-		    nombreBanco: "",
-		    estado:"",
-		    existe:false
-	      };
+    var paramsTabla1 = {count: 10};
+    var settingTabla1 = {counts: []};
+    $scope.tabla1 = new NgTableParams(paramsTabla1, settingTabla1);
+  
+        
+    $scope.listar1 = function(){
+    	
+    	settingTabla1.dataset = [{
+			perId:12,    	
+			perDNI:"34344512",
+			perNom:"nfsdfs sfdjhsd",
+			perAsu:"sdfksdjhf sdfkjshdfkjh",
+			
+    	},{
+			perId:13,    	
+			perDNI:"7456745",
+			perNom:"jksdhfs sdjhfgsjdhf",
+			perAsu:"TRAEAEEAERAR AEAE",
+    	}];
+        iniciarPosiciones(settingTabla1.dataset);            
+        $scope.tabla1.settings(settingTabla1);
+        
+                
+    };
     
-	
-	$scope.iniciarDatos=function()
-	{
+    $scope.listar1();
+    
+    var paramsTabla2 = {count: 10}; 
+    var settingTabla2 = {counts: []};
+    $scope.tabla2 = new NgTableParams(paramsTabla2, settingTabla2);
+        
+    $scope.listar2 = function(){
+    	
+    	settingTabla2.dataset = [{
+			perId:12,    	
+			perDNI:"34344512",
+			perNom:"nfsdfs sfdjhsd",
+			perAsu:"sdfksdjhf sdfkjshdfkjh",
+			detalle:"detalle1 sdfsdfsdfsdf",
+    	},{
+			perId:13,    	
+			perDNI:"7456745",
+			perNom:"jksdhfs sdjhfgsjdhf",
+			perAsu:"TRAEAEEAERAR AEAE",
+			detalle:"Detalle2",
+    	}];
+        iniciarPosiciones(settingTabla2.dataset);            
+        $scope.tabla2.settings(settingTabla2);
+        
+                
+    };
+    
+    $scope.listar2();
+            
+    $scope.reqActual = {};
+    
+    $scope.aprobarRequerimiento = function(i, d){    	
+    	$scope.reqActual = d;
+    	$("#modalAprobar").modal('show');
+    	
+    };
+    
+    $scope.aprobarReq = function(f){
+    	$scope.reqActual.estado = f;    	
+    };
+    
+    
+    
+    $scope.registrarRequerimiento = function(i, d){
+    	$scope.reqActual = d;
+    	$("#modalRegistrarReq").modal('show');    	
+    };
+    
+    $scope.registrarReq = function(d){
+    	$scope.reqActual.detalle = d;    	
+    };
 
-		UserService.getAll("resources/personas").then(
-				function(response){
-					setting.dataset = response;
-		            iniciarPosiciones(setting.dataset);
-		            $scope.miTabla.settings(setting);
-				},
-				function(error){
-					alert('Error');
-				}
-		);
-		
-//		UserService.getAll("bancos/getAll").then(
-//				function(response){
-//					$scope.bancos = response.response;
-//		            
-//				},
-//				function(error){
-//					alert('Error');
-//				}
-//		);
-
-	};
-	
-	
-	$scope.prepararAgregar=function(){
-		$scope.persona= {
-			    idPersona:"",
-			    codigo:"",
-			    dni: "",
-			    nombre: "",
-			    apellidos: "",
-			    direccion: "",
-			    fecha_nacimiento: "",
-			    existe:false
-		      };
-	    $scope.trabajador= {
-			    
-			    idTrabajador: "",
-			    cuspp: "",
-			    tipo_pension: "",
-			    carga_familiar: "",
-			    cargo: "",
-			    fecha_ingreso_planilla: "",
-			    sueldo_bruto: "",
-			    nro_cuenta_haberes: "",
-			    banco_id: "",
-			    nombreBanco: "",
-			    estado:"",
-			    existe:false
-		      };
-		$("#modalNuevo").modal('show');
-//		$("#modalRegistroHoras").modal('show');
-	};
-	
-	$scope.cargarModalRegistroHoras=function(){
-		$("#modalRegistroHoras").modal('show');
-	};
-	
-	
+//    $scope.cerrarModalPariente = function(){
+//        $scope.listar();
+//        $('#modalEditar').modal('show');                
+//    }
 	
 });
 	
