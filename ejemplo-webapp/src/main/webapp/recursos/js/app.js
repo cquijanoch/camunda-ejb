@@ -18,11 +18,11 @@ app.config(function($routeProvider){
          templateUrl : 'views/personal.html'
      })
      .when('/pagos', {
-    	 controller: 'PlanillasController',
+    	 controller: 'PagosController',
          templateUrl : 'views/pagos.html'
      })
      .when('/planillas', {
-    	 controller: 'PagosController',
+    	 controller: 'PlanillasController',
          templateUrl : 'views/planillas.html'
      })
      .otherwise( {
