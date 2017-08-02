@@ -26,7 +26,11 @@ public class Personal {
 //    	persona.setSegundoNombre("b");
 //    	persona.setSegundoNombre("c");
 //    	persona.setApellidos("a");
+
     	listaPersona.add(persona);
+
+    	listaPersona.add(persona);
+
     	return listaPersona;
     }
 
