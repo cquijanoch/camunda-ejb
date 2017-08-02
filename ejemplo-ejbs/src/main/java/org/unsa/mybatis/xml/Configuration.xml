@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
             <transactionManager type="JDBC"/>
             <dataSource type="UNPOOLED">
                 <property name="driver" value="org.postgresql.Driver"/>
-                <property name="url" value="jdbc:postgresql://localhost:5432/camundaEjb"/>
+                <property name="url" value="jdbc:postgresql://localhost:5432/camundaejbdb"/>
                 <property name="username" value="postgres"/>
                 <property name="password" value="root"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="org/unsa/mybatis/xml/ContohMapper.xml"/>
+        <mapper resource="org/unsa/mybatis/xml/UsuarioMapper.xml"/>
     </mappers>
 </configuration>

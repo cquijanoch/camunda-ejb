@@ -18,14 +18,14 @@ import org.camunda.bpm.engine.RuntimeService;
 @DependsOn("DefaultEjbProcessApplication")
 public class EjbProcessStarter {
 
-  @Inject
-  private RuntimeService runtimeService;
+//  @Inject
+//  private RuntimeService runtimeService;
 
-  @Schedule(hour="*", minute="*")
-  public void startProcessInstance() {
-
-    runtimeService.startProcessInstanceByKey("testResolveBean");
-
-  }
+//  @Schedule(hour="*", minute="*")
+//  public void startProcessInstance() {
+//
+//    runtimeService.startProcessInstanceByKey("testResolveBean");
+//
+//  }
 
 }

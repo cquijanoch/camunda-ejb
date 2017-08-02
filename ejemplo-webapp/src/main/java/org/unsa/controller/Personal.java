@@ -22,11 +22,11 @@ public class Personal {
     public List<PersonaDto> obtenerPersona(){
     	List<PersonaDto> listaPersona=new ArrayList<PersonaDto>();
     	PersonaDto persona=new PersonaDto();
-    	persona.setNombre("a");
-    	persona.setSegundoNombre("b");
-    	persona.setSegundoNombre("c");
-    	persona.setApellidos("a");
-    	listaPersona.add(persona);
+//    	persona.setNombre("a");
+//    	persona.setSegundoNombre("b");
+//    	persona.setSegundoNombre("c");
+//    	persona.setApellidos("a");
+//    	listaPersona.add(persona);
     	return listaPersona;
     }
 
