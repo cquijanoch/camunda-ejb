@@ -22,7 +22,10 @@ public class mesaPartes {
     @GET
     public List<PersonaDto> obtenerPersona(){
     	List<PersonaDto> listaPersona=new ArrayList<PersonaDto>();
-    	PersonaDto persona=new PersonaDto();
+    	PersonaDto persona=new PersonaDto("Asunto", "34454545", "A", "Jose Tito", 34);
+    	listaPersona.add(persona);
+    	listaPersona.add(persona);
+    	listaPersona.add(persona);
     	
     	return listaPersona;
     }

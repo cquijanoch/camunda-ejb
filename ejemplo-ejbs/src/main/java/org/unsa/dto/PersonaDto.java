@@ -16,6 +16,17 @@ public class PersonaDto implements Serializable{
 	{
 		
 	}
+	
+	public PersonaDto(String perAsu, String perDNI, String estado, String perNom, int perId)
+	{
+		this.perAsu = perAsu;
+		this.perDNI = perDNI;
+		this.estado = estado;
+		this.perNom = perNom;
+		this.perId = perId;
+	}
+	
+	
 
 	public String getperAsu() {
 		return perAsu;
