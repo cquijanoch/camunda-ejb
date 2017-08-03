@@ -1,0 +1,10 @@
+*.class
+*.iml
+pom.properties
+target/
+.project
+.classpath
+.settings
+.springBeans
+.idea
+datasource.properties
