@@ -15,15 +15,19 @@ app.config(function($routeProvider){
      })
      .when('/personal', {
     	 controller: 'PersonalController',
-         templateUrl : 'views/personal.html'
+         templateUrl : 'views/personal.html'//mesa de partes
      })
      .when('/pagos', {
     	 controller: 'PagosController',
-         templateUrl : 'views/pagos.html'
+         templateUrl : 'views/pagos.html'//usuario
      })
      .when('/planillas', {
     	 controller: 'PlanillasController',
-         templateUrl : 'views/planillas.html'
+         templateUrl : 'views/planillas.html'//diga
+     })
+     .when('/tesoreria', {
+    	 controller: 'TesoreriaController',
+         templateUrl : 'views/tesoreria.html'//tesoreria
      })
      .otherwise( {
          redirectTo: '/'
@@ -47,11 +51,10 @@ app.run(['$rootScope','$location',function($rootScope,$location) {
     
     
     $rootScope.menu = [
-    	{nombre:"Personal",id:"1"},
-    	{nombre:"Generar Planilla",id:"2"},
-    	{nombre:"Exportar Planilla a SIAF",id:"3"},
-    	{nombre:"Realizar Pago",id:"4"},
-    	{nombre:"Generar Boletas de Pago",id:"5"}
+    	{nombre:"Mesa de Partes",id:"1"},
+    	{nombre:"DIGA",id:"2"},
+    	{nombre:"Tesoreria",id:"3"},
+    	{nombre:"Usuario",id:"4"}
     	];
     $rootScope.modNom = "";
     $rootScope.subModNom = "";

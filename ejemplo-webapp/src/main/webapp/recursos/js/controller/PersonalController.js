@@ -1,4 +1,4 @@
-app.controller("PersonalController",function($scope,UserService,modal,NgTableParams){
+	app.controller("PersonalController",function($scope,UserService,modal,NgTableParams){
     
     var paramsTabla1 = {count: 10};
     var settingTabla1 = {counts: []};
@@ -21,6 +21,21 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
     	}];
         iniciarPosiciones(settingTabla1.dataset);            
         $scope.tabla1.settings(settingTabla1);
+        
+        
+        UserService.getAll("resources/aprobarRequisito").then(
+				function(response){
+//					setting.dataset = response;
+//		            iniciarPosiciones(setting.dataset);
+//		            $scope.miTabla.settings(setting);
+					console.log(response);
+					console.log("11111111-------1111111");
+				},
+				function(error){
+					alert('Error');
+				}
+		);
+        
         
                 
     };
