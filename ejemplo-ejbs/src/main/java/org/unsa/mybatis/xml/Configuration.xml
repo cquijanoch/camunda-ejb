@@ -13,8 +13,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
                 <property name="password" value="root"/>
             </dataSource>
         </environment>
+
     </environments>
+<!-- 	    <mappers> -->
+<!-- 			<package name="org.unsa.mybatis.mapper" /> -->
+<!-- 		</mappers> -->
+<!--      <property name="mapperLocations" value="classpath:org/unsa/mybatis/xml/**/*Mapper.xml"/> -->
     <mappers>
         <mapper resource="org/unsa/mybatis/xml/UsuarioMapper.xml"/>
+        <mapper resource="org/unsa/mybatis/xml/RequerimientoMapper.xml"/>
     </mappers>
 </configuration>

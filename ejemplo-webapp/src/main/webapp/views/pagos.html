@@ -12,17 +12,17 @@
 		<form ng-controller="PagosController">
 			<div class="form-group has-feedback">
 				<input id="nombre" type="text" class="form-control"
-					placeholder="Nombre Usuario" ng-model="usuarios.nombre">
+					placeholder="Nombre Usuario" ng-model="requerimiento.usuario.nombre">
 			</div>
 			<div class="form-group has-feedback">
 				<input id="fullname" type="text" class="form-control"
-					placeholder="Ingrese Nro DNI" ng-model="usuarios.dni">
+					placeholder="Ingrese Nro DNI" ng-model="requerimiento.usuario.dni">
 			</div>
 
-<!-- 			<div class="form-group has-feedback"> -->
-<!-- 				<textarea class="form-control" placeholder="Ingrese Asunto" rows="5" -->
-<!-- 					cols=""></textarea> -->
-<!-- 			</div> -->
+			<div class="form-group has-feedback">
+				<textarea class="form-control" placeholder="Ingrese Asunto" rows="5"
+					cols="" ng-model="requerimiento.asunto"></textarea>
+			</div>
 
 			<div class="row">
 				<div class="col-xs-8"></div>

@@ -1,6 +1,7 @@
 package org.unsa.dto;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProcessDto {
 	
@@ -10,8 +11,8 @@ public class ProcessDto {
 	private String processDefinitionKey;
 	private String processName;
 	private UsuarioDto usuarioDto;
-	
 	private List<TaskDto> taskList;
+	private Map<String,Object> variables;
 
 	public String getBusinessKey() {
 		return businessKey;
@@ -68,5 +69,18 @@ public class ProcessDto {
 	public void setUsuarioDto(UsuarioDto usuarioDto) {
 		this.usuarioDto = usuarioDto;
 	}
+
+	public Map<String, Object> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(Map<String, Object> variables) {
+		this.variables = variables;
+	}
+	
+	public void setVariable(String key,Object value){
+		this.variables.put(key, value);
+	}
+	
 	
 }

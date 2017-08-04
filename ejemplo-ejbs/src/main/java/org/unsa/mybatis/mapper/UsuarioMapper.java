@@ -6,6 +6,8 @@ import org.unsa.mybatis.bean.Usuario;
 
 public interface UsuarioMapper {
 	
-	int save(Usuario usuario);
+	void insert(Usuario usuario);
 	List<Usuario> getAll();
+	void insertTest(Usuario usuario);
+
 }

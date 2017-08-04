@@ -12,6 +12,10 @@ app.service("UserService",function(SendRequest){
 		return SendRequest.noAuthenticatedRequest('PUT',url,request)
 	}
 	
+	this.getTasks = function(url,request){
+		return SendRequest.noAuthenticatedRequest('GET',url,request)
+	}
+	
 });
 
 /*el atributo ->i<- esta reservado para indicar la posicion del elemento en el array*/

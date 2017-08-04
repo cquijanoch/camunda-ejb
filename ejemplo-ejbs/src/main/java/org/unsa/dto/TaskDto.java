@@ -1,5 +1,8 @@
 package org.unsa.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TaskDto {
 	
 	private String assignee;
@@ -7,6 +10,9 @@ public class TaskDto {
 	private String name;
 	private String group;
 	private String taskId;
+	private String executionId;
+	private Map<String,Object> variables;
+	
 	
 	public String getAssignee() {
 		return assignee;
@@ -38,7 +44,20 @@ public class TaskDto {
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
 	}
-	
-	
+	public String getExecutionId() {
+		return executionId;
+	}
+	public void setExecutionId(String executionId) {
+		this.executionId = executionId;
+	}
+
+	public Map<String, Object> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(Map<String, Object> variables) {
+		this.variables = variables;
+	}
+
 	
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.unsa.mybatis.mapper.RequerimientoMapper">
+
+	<insert id="save" parameterType="org.unsa.mybatis.bean.Requerimiento" useGeneratedKeys="true" keyProperty="requerimientoId" keyColumn="id_requerimiento">
+		insert into requerimiento (asunto, id_usuario)
+		values (#{asunto}, #{usuarioId})
+	</insert>
+	
+	<select id="getAll" resultType="org.unsa.mybatis.bean.Requerimiento">
+		SELECT * from Requerimiento r JOIN usuario u 
+		ON r.id_usuario = u.id_usuario
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="org.unsa.mybatis.bean.Requerimiento">
+		SELECT * from Requerimiento r JOIN usuario u 
+		ON r.id_usuario = u.id_usuario
+		WHERE r.id_usuario=#{Requerimiento_requerimientoId}
+	</select>
+
+</mapper>

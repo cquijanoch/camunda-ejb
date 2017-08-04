@@ -2,14 +2,17 @@ package org.unsa.camunda.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
 import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
@@ -18,27 +21,27 @@ import org.unsa.dto.ProcessDto;
 import org.unsa.dto.TaskDto;
 
 @Stateless
-public class CamundaApiImpl implements CamundaApi {
+public class CamundaApiImpl  implements CamundaApi {
 	
 	
 	private RuntimeService runtimeService;
-	
-	
 	private TaskService taskService;
+	private RepositoryService repositoryService;
 	
 	@PostConstruct
 	public void initialize(){
 		ProcessEngine processEngine=BpmPlatform.getProcessEngineService().getProcessEngine("default");
 		runtimeService= processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
+		repositoryService=processEngine.getRepositoryService();
 	}
 
 	@Override
 	public ProcessDto createProcess(ProcessDto process) {
 		
-		
 		ProcessInstance processInstance=runtimeService.startProcessInstanceByKey(process.getProcessDefinitionKey());
 		process.setProcessInstanceId(processInstance.getProcessInstanceId());
+		process.setBusinessKey(processInstance.getBusinessKey());
 		return process;
 	}
 
@@ -54,28 +57,95 @@ public class CamundaApiImpl implements CamundaApi {
 
 		List<Task> tasks = query.list();
 		
+		
 		for(Task task : tasks){
 			
 			TaskDto taskDto = new TaskDto();
 			taskDto.setName(task.getName());
 			taskDto.setTaskId(task.getId());
 			taskDto.setAssignee(task.getAssignee());
+			taskDto.setProcessInstanceId(task.getProcessInstanceId());
+			taskDto.setExecutionId(task.getExecutionId());
+			taskDtoList.add(taskDto);
+			
 		}
-		return null;
+		return taskDtoList;
 	}
 
 	@Override
-	public List<TaskDto> completeTask(TaskDto task) {
-		// TODO Auto-generated method stub
-		return null;
+	public TaskDto completeTask(TaskDto task) {
+		taskService.complete(task.getTaskId());
+		runtimeService.setVariables(task.getExecutionId(), task.getVariables());
+		return task;
 	}
 
 	@Override
-	public ProcessDto finishProcess(ProcessDto process) {
+	public void finishProcess(ProcessDto process) {
+		this.runtimeService.deleteProcessInstance(process.getProcessInstanceId(),null);
+	}
+
+	@Override
+	public List<ProcessDto> getAllInstanceProcess(String processDefinitionKey) {
+		List<ProcessInstance> processInstance =this.runtimeService.createProcessInstanceQuery().
+				processDefinitionKey(processDefinitionKey)
+				.orderByProcessInstanceId()
+				.desc()
+				.list();
 		
-		return null;
+		List<ProcessDto> processes = new ArrayList<ProcessDto>();
+		for(ProcessInstance index : processInstance){
+			
+			ProcessDto processDto = new ProcessDto();
+			processDto.setBusinessKey(index.getBusinessKey());
+			processDto.setProcessInstanceId(index.getProcessInstanceId());
+		}
+		return processes;
+	}
+
+	@Override
+	public ProcessDto getProcess(String processInstanceId) {
+		ProcessDto processDto = new ProcessDto();
+		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+				.processInstanceId(processInstanceId)
+				.singleResult();
+		
+		processDto.setBusinessKey(processInstance.getBusinessKey());
+		processDto.setProcessInstanceId(processInstance.getProcessInstanceId());
+		
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(processInstance.getProcessDefinitionId())
+				.singleResult();
+		
+		processDto.setProcessDefinitionKey(processDefinition.getName());
+		processDto.setProcessDefinitionKey(processDefinition.getKey());
+		
+		processDto.setVariables(runtimeService.getVariables(processInstance.getProcessInstanceId()));
+		
+		return processDto;
+	}
+
+	@Override
+	public List<TaskDto> getTaskByTaskId(String taskId,String procesdefinitionKey) {
+		
+		List<TaskDto> taskDtoList = new ArrayList<TaskDto>();
+		
+		TaskQuery query = taskService.createTaskQuery()
+				.processDefinitionKey(procesdefinitionKey)
+				.taskDefinitionKey(taskId);
+
+		List<Task> tasks = query.list();
+		for(Task task : tasks){
+			
+			TaskDto taskDto = new TaskDto();
+			taskDto.setName(task.getName());
+			taskDto.setTaskId(task.getId());
+			taskDto.setAssignee(task.getAssignee());
+			taskDto.setProcessInstanceId(task.getProcessInstanceId());
+			taskDto.setExecutionId(task.getExecutionId());
+			taskDtoList.add(taskDto);
+			
+		}
+		return taskDtoList;
 	}
 	
-	
-
 }

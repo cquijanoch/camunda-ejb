@@ -5,6 +5,7 @@ public class Usuario {
 	private Integer usuarioId;
 	private String  nombre;
 	private Integer dni;
+	private String dnistring;
 	
 	public Usuario(){
 		
@@ -28,5 +29,14 @@ public class Usuario {
 	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
+
+	public String getDnistring() {
+		return dnistring;
+	}
+
+	public void setDnistring(String dnistring) {
+		this.dnistring = dnistring;
+	}
+	
 	
 }

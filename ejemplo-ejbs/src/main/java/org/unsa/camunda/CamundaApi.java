@@ -11,9 +11,12 @@ import org.unsa.dto.TaskDto;
 public interface CamundaApi {
 	
 	ProcessDto createProcess(ProcessDto process);
-	ProcessDto finishProcess(ProcessDto process);
+	void finishProcess(ProcessDto process);
 	List<TaskDto> getTaskByProcessInstance(ProcessDto process);
-	List<TaskDto> completeTask(TaskDto task);
+	List<TaskDto> getTaskByTaskId(String taskId,String procesdefinitionKey);
+	TaskDto completeTask(TaskDto task);
+	List<ProcessDto> getAllInstanceProcess(String processDefinitionKey);
+	ProcessDto getProcess(String processInstanceId);
 	
 
 }

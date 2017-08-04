@@ -1,12 +1,12 @@
 package org.unsa.mybatis.bean;
 
 public class Requerimiento {
+	private Integer requerimientoId;
 	private String asunto;
-	private String usuarioId;
+	private Integer usuarioId;
 	private String usuarioNombre;
 	private String usuarioDni;
 	
-	public Requerimiento(){}
 	
 	public String getAsunto() {
 		return asunto;
@@ -15,11 +15,11 @@ public class Requerimiento {
 		this.asunto = asunto;
 	}
 	
-	public String getUsuarioId() {
+	public Integer getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(String usuarioId) {
+	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 
@@ -34,6 +34,14 @@ public class Requerimiento {
 	}
 	public void setUsuarioDni(String usuarioDni) {
 		this.usuarioDni = usuarioDni;
+	}
+
+	public Integer getRequerimientoId() {
+		return requerimientoId;
+	}
+
+	public void setRequerimientoId(Integer requerimientoId) {
+		this.requerimientoId = requerimientoId;
 	}
 	
 }

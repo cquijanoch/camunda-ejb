@@ -1,19 +1,19 @@
 app.controller("PagosController", function($scope, UserService, modal) {
 	$scope.usuarios = {};
-
-	$scope.usuarios = {
-		nombre : "",
-		dni : ""
-	};
+	$scope.requerimiento={};
+	
 
 	$scope.guardarUsuario = function() {
-		$scope.data = {
-				processDefinitionKey:'Proceso2dfase',
-				usuarioDto:$scope.usuarios
-					
-		}
-	
-		UserService.add("resources/registrarUsuario", $scope.data).then(
+		$scope.request = {
+			    header: {},
+			    body: {
+			        asunto: $scope.requerimiento.asunto,
+			        usuarioDto: $scope.requerimiento.usuario
+			    }
+
+		};
+		
+		UserService.add("resources/registrarRequerimiento", $scope.request).then(
 				function(response) {
 					// modal.mensajeConfirmacion($scope,"SI INGRESO
 					// CORRECTAMENTE",function(){},400);
@@ -23,5 +23,14 @@ app.controller("PagosController", function($scope, UserService, modal) {
 				});
 		
 	};
+	
+	UserService.getTasks("resources/registrarRequerimiento",null).then(
+			function(response){
+				console.log('Exito')
+			},
+			function(error){
+				console.log('Error');
+			}
+	)
 
 });
