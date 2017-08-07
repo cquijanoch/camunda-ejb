@@ -7,6 +7,10 @@ public class HeaderDto {
 	private String processName;
 	private String executionId;
 	private String taskName;
+	private String taskId;
+	private String taskKey;
+	
+	
 	public String getBusinessKey() {
 		return businessKey;
 	}
@@ -42,6 +46,18 @@ public class HeaderDto {
 	}
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
+	}
+	public String getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+	public String getTaskKey() {
+		return taskKey;
+	}
+	public void setTaskKey(String taskKey) {
+		this.taskKey = taskKey;
 	}
 	
 	

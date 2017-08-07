@@ -37,12 +37,21 @@ public class CamundaApiImpl  implements CamundaApi {
 	}
 
 	@Override
-	public ProcessDto createProcess(ProcessDto process) {
+	public ProcessDto createProcess(ProcessDto processDto) {
 		
-		ProcessInstance processInstance=runtimeService.startProcessInstanceByKey(process.getProcessDefinitionKey());
-		process.setProcessInstanceId(processInstance.getProcessInstanceId());
-		process.setBusinessKey(processInstance.getBusinessKey());
-		return process;
+		ProcessInstance processInstance=runtimeService.startProcessInstanceByKey(processDto.getProcessDefinitionKey());
+		processDto.setProcessInstanceId(processInstance.getProcessInstanceId());
+		processDto.setBusinessKey(processInstance.getBusinessKey());
+		
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(processInstance.getProcessDefinitionId())
+				.singleResult();
+		
+		processDto.setProcessName(processDefinition.getName());
+		processDto.setProcessDefinitionKey(processDefinition.getId());
+		processDto.setProcessKey(processDefinition.getKey());
+		
+		return processDto;
 	}
 
 	@Override
@@ -67,8 +76,8 @@ public class CamundaApiImpl  implements CamundaApi {
 			taskDto.setProcessInstanceId(task.getProcessInstanceId());
 			taskDto.setExecutionId(task.getExecutionId());
 			taskDtoList.add(taskDto);
-			
 		}
+		
 		return taskDtoList;
 	}
 
@@ -116,7 +125,7 @@ public class CamundaApiImpl  implements CamundaApi {
 				.processDefinitionId(processInstance.getProcessDefinitionId())
 				.singleResult();
 		
-		processDto.setProcessDefinitionKey(processDefinition.getName());
+		processDto.setProcessName(processDefinition.getName());
 		processDto.setProcessDefinitionKey(processDefinition.getKey());
 		
 		processDto.setVariables(runtimeService.getVariables(processInstance.getProcessInstanceId()));
@@ -134,7 +143,9 @@ public class CamundaApiImpl  implements CamundaApi {
 				.taskDefinitionKey(taskId);
 
 		List<Task> tasks = query.list();
+		
 		for(Task task : tasks){
+			
 			
 			TaskDto taskDto = new TaskDto();
 			taskDto.setName(task.getName());
@@ -142,10 +153,38 @@ public class CamundaApiImpl  implements CamundaApi {
 			taskDto.setAssignee(task.getAssignee());
 			taskDto.setProcessInstanceId(task.getProcessInstanceId());
 			taskDto.setExecutionId(task.getExecutionId());
+			taskDto.setVariables(taskService.getVariables(task.getId()));
+			taskDto.setProcessDefinitionKey(task.getProcessDefinitionId());
+			taskDto.setKey(task.getTaskDefinitionKey());
 			taskDtoList.add(taskDto);
+			
 			
 		}
 		return taskDtoList;
+	}
+
+	@Override
+	public ProcessDto getSubprocess(String parentProcessInstanceId, String childProcessKey) {
+		ProcessDto processDto = new ProcessDto();
+		
+		ProcessInstance subProcessInstance =runtimeService.createProcessInstanceQuery()
+				.superProcessInstanceId(parentProcessInstanceId)
+				.singleResult();
+		
+		
+		processDto.setBusinessKey(subProcessInstance.getBusinessKey());
+		processDto.setProcessInstanceId(subProcessInstance.getProcessInstanceId());
+		
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(subProcessInstance.getProcessDefinitionId())
+				.singleResult();
+		
+		processDto.setProcessDefinitionKey(processDefinition.getName());
+		processDto.setProcessDefinitionKey(processDefinition.getKey());
+		
+		processDto.setVariables(runtimeService.getVariables(subProcessInstance.getProcessInstanceId()));
+		
+		return processDto;
 	}
 	
 }

@@ -36,20 +36,20 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
 
 	@Override
 	public ProcessDto saveUser(ProcessDto processDto) {
-		UsuarioDto usuarioDto = processDto.getUsuarioDto();
-		this.usuarioDao.saveUser(usuarioDto);
-		
-		camundaApi.createProcess(processDto);
-		
-		List<TaskDto> activeTasks = camundaApi.getTaskByProcessInstance(processDto);
-		
-		if(activeTasks.size() == 1){
-			
-			TaskDto userTask = activeTasks.get(0);
-			camundaApi.completeTask(userTask);
-		}
-		
-		return processDto;
+//		UsuarioDto usuarioDto = processDto.getUsuarioDto();
+//		this.usuarioDao.saveUser(usuarioDto);
+//		
+//		camundaApi.createProcess(processDto);
+//		
+//		List<TaskDto> activeTasks = camundaApi.getTaskByProcessInstance(processDto);
+//		
+//		if(activeTasks.size() == 1){
+//			
+//			TaskDto userTask = activeTasks.get(0);
+//			camundaApi.completeTask(userTask);
+//		}
+//		
+		return null;
 	}
 	@Override
 	public UsuarioDto saveUser(UsuarioDto usuarioDto) {
