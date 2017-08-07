@@ -7,40 +7,40 @@
         
     $scope.listar1 = function(){
     	
-    	settingTabla1.dataset = [{
-			perId:12,    	
-			perDNI:"34344512",
-			perNom:"nfsdfs sfdjhsd",
-			perAsu:"sdfksdjhf sdfkjshdfkjh",
-			
-    	},{
-			perId:13,    	
-			perDNI:"7456745",
-			perNom:"jksdhfs sdjhfgsjdhf",
-			perAsu:"TRAEAEEAERAR AEAE",
-    	}];
-        iniciarPosiciones(settingTabla1.dataset);            
-        $scope.tabla1.settings(settingTabla1);
-        
-        
-        UserService.getAll("resources/aprobarRequisito").then(
-				function(response){
+//        UserService.getAll("resources/aprobarRequisito").then(
+//				function(response){
+//
+//					console.log(response);
+//					console.log("11111111-------1111111");
+//				},
+//				function(error){
+//					alert('Error');
+//				}
+//		);
+                UserService.getTasks("resources/mesapartes",null).then(
+    			function(response){
 //					setting.dataset = response;
 //		            iniciarPosiciones(setting.dataset);
 //		            $scope.miTabla.settings(setting);
-					console.log(response);
-					console.log("11111111-------1111111");
-				},
-				function(error){
-					alert('Error');
-				}
-		);
+    				
+    				var process = response.body.task;
+    				settingTabla1.dataset = [];
+    				for(var i = 0; i < process.length; i++) settingTabla1.dataset.push(process[i].headerDto);	
+    				iniciarPosiciones(settingTabla1.dataset);
+    		        $scope.tabla1.settings(settingTabla1);
+    				console.log(response);
+    				console.log('Exito3333')
+    			},
+    			function(error){
+    				console.log('Error');
+    			}
+    	)
         
         
                 
     };
     
-    $scope.listar1();
+    //$scope.listar1();
     
     var paramsTabla2 = {count: 10}; 
     var settingTabla2 = {counts: []};
@@ -70,7 +70,7 @@
     $scope.listar2();
             
     $scope.reqActual = {};
-    
+        
     $scope.aprobarRequerimiento = function(i, d){    	
     	$scope.reqActual = d;
     	$("#modalAprobar").modal('show');
@@ -79,16 +79,42 @@
     
     $scope.aprobarReq = function(f){
     	
-    	$scope.reqActual.estado = f;    
-    	delete $scope.reqActual['i'];
-    	UserService.add("resources/aprobarRequisito", $scope.reqActual).then(
-				function(response){
-					console.log("se aprobo el requerimiento");
-				},
-				function(error){
+//    	$scope.reqActual.estado = f;    
+//    	delete $scope.reqActual['i'];  
+    	
+    	$scope.request = {
+			    header: {
+		    		executionId:$scope.reqActual.executionId,
+		    		taskId:	$scope.reqActual.taskId
+			    },
+			    body: {
+			        completed: f
+			    }
+		};
+		
+		UserService.add("resources/mesapartes", $scope.request).then(
+				function(response) {
+					// modal.mensajeConfirmacion($scope,"SI INGRESO
+					// CORRECTAMENTE",function(){},400);
+					modal.mensaje("CONFIRMACION","SE APROBO CORRECTAMENTE");
+					eliminarElemento(settingTabla1.dataset, $scope.reqActual['i']);
+					$scope.tabla1.reload();
+				}, function(error) {
 					alert('Error');
-				}
-		);
+				});
+    	
+    	
+    	
+//    	$scope.reqActual.estado = f;    
+//    	delete $scope.reqActual['i'];
+//    	UserService.add("resources/aprobarRequisito", $scope.reqActual).then(
+//				function(response){
+//					console.log("se aprobo el requerimiento");
+//				},
+//				function(error){
+//					alert('Error');
+//				}
+//		);
     	    	
     };
     
