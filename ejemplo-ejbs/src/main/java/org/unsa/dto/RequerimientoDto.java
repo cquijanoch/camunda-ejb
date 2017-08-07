@@ -5,6 +5,7 @@ public class RequerimientoDto {
 	private Integer requerimientoId;
 	private String asunto;
 	private UsuarioDto usuarioDto;
+	private boolean completed;
 	
 	public Integer getRequerimientoId() {
 		return requerimientoId;
@@ -23,6 +24,14 @@ public class RequerimientoDto {
 	}
 	public void setUsuarioDto(UsuarioDto usuarioDto) {
 		this.usuarioDto = usuarioDto;
+	}
+	
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
+	
+	public boolean getCompleted() {
+		return completed;
 	}
 
 }
