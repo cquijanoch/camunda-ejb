@@ -41,14 +41,13 @@ public class RequerimientoController {
 		this.requerimientoBusiness.save(requerimiento);
 		
 		ProcessDto processDto = new ProcessDto();
-		processDto.setProcessKey("Proceso2dfase");
+		processDto.setProcessDefinitionKey("Proceso2dfase");
 		camundaApi.createProcess(processDto);
 
 		List<TaskDto> activeTasks = camundaApi.getTaskByProcessInstance(processDto);
 		TaskDto userTask= null;
 
 		if (activeTasks.size() == 1) {
-
 			 userTask = activeTasks.get(0);
 			 Map<String,Object>  variables= new HashMap<String,Object>();
 			 variables.put("requerimiento", requerimiento);
