@@ -10,6 +10,7 @@ public class ProcessDto {
 	private String processKey;
 	private String processDefinitionKey;
 	private String processName;
+	
 	private List<TaskDto> taskList;
 	private Map<String,Object> variables;
 
@@ -60,6 +61,8 @@ public class ProcessDto {
 	public void setProcessName(String processName) {
 		this.processName = processName;
 	}
+
+
 
 	public Map<String, Object> getVariables() {
 		return variables;
