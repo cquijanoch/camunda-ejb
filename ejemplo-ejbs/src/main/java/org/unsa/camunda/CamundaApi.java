@@ -17,6 +17,7 @@ public interface CamundaApi {
 	TaskDto completeTask(TaskDto task);
 	List<ProcessDto> getAllInstanceProcess(String processDefinitionKey);
 	ProcessDto getProcess(String processInstanceId);
+	ProcessDto getSubprocess(String parentProcess,String childProcess);
 	
 
 }

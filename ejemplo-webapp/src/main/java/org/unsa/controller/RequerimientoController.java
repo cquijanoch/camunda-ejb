@@ -1,6 +1,8 @@
 package org.unsa.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -46,8 +48,10 @@ public class RequerimientoController {
 		TaskDto userTask= null;
 
 		if (activeTasks.size() == 1) {
-
 			 userTask = activeTasks.get(0);
+			 Map<String,Object>  variables= new HashMap<String,Object>();
+			 variables.put("requerimiento", requerimiento);
+			 userTask.setVariables(variables);
 			camundaApi.completeTask(userTask);
 		}
 		
@@ -57,7 +61,7 @@ public class RequerimientoController {
 		header.setBusinessKey(processDto.getBusinessKey());
 		header.setProcessDefinitionKey(processDto.getProcessDefinitionKey());
 		header.setProcessInstanceId(processDto.getProcessInstanceId());
-		header.setProcessName("aaa");
+		header.setProcessName(processDto.getProcessName());
 		header.setExecutionId(userTask.getExecutionId());
 //		
 		GetTaskDto<RequerimientoDto> body = new GetTaskDto<RequerimientoDto>();
@@ -83,10 +87,18 @@ public class RequerimientoController {
 		
 		
 		for(TaskDto taskIndex : activeTasks){
+			RequerimientoDto requerimiento = (RequerimientoDto)taskIndex.getVariable("requerimiento");
+			
 			HeaderDto header = new HeaderDto();
 			header.setProcessInstanceId(taskIndex.getProcessInstanceId());
 			header.setExecutionId(taskIndex.getExecutionId());
+			header.setTaskName(taskIndex.getName());
+			header.setTaskId(taskIndex.getTaskId());
+			header.setProcessDefinitionKey(taskIndex.getProcessDefinitionKey());
+			header.setTaskKey(taskIndex.getKey());
+			
 			UserTaskDto<RequerimientoDto> task = new UserTaskDto<RequerimientoDto>();
+			task.setBody(requerimiento);
 			task.setHeaderDto(header);
 			body.setTask(task);
 		}
