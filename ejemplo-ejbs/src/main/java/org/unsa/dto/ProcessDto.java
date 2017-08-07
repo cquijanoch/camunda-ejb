@@ -10,7 +10,7 @@ public class ProcessDto {
 	private String processKey;
 	private String processDefinitionKey;
 	private String processName;
-	private UsuarioDto usuarioDto;
+	
 	private List<TaskDto> taskList;
 	private Map<String,Object> variables;
 
@@ -62,13 +62,7 @@ public class ProcessDto {
 		this.processName = processName;
 	}
 
-	public UsuarioDto getUsuarioDto() {
-		return usuarioDto;
-	}
 
-	public void setUsuarioDto(UsuarioDto usuarioDto) {
-		this.usuarioDto = usuarioDto;
-	}
 
 	public Map<String, Object> getVariables() {
 		return variables;
