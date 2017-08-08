@@ -23,6 +23,7 @@ public class ExpedientesDiga {
   
 	@EJB
 	Bar bar;
+	
     @GET
     public List<ExpedienteDigaDto> listarExpedientes(){
     	List<ExpedienteDigaDto> lista=new ArrayList<ExpedienteDigaDto>();
