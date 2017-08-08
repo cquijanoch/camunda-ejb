@@ -55,7 +55,7 @@
     <endEvent id="EndEvent_2" name="Devolver Papeles">
       <incoming>SequenceFlow_16</incoming>
     </endEvent>
-    <serviceTask id="ServiceTask_2" name="Aprobar Requerimmiento" camunda:expression="${true}">
+    <serviceTask id="ServiceTask_2" name="Aprobar Requerimmiento" camunda:delegateExpression="${digaRequerimientoAprobarDelegate}">
       <incoming>SequenceFlow_20</incoming>
       <outgoing>SequenceFlow_1mokppg</outgoing>
     </serviceTask>
@@ -70,10 +70,16 @@
       <outgoing>SequenceFlow_0oaj013</outgoing>
     </parallelGateway>
     <userTask id="task_review_req_diga" name="Revisar Requerimiento" camunda:assignee="demo">
+      <extensionElements>
+        <camunda:taskListener delegateExpression="${digaRequerimientoRevisarListener}" event="complete" />
+      </extensionElements>
       <incoming>SequenceFlow_1u7wkt9</incoming>
       <outgoing>SequenceFlow_19</outgoing>
     </userTask>
     <userTask id="Task_1411tui" name="Validar usuario">
+      <extensionElements>
+        <camunda:taskListener delegateExpression="${digaUsuarioValidarListener}" event="complete" />
+      </extensionElements>
       <incoming>SequenceFlow_0oaj013</incoming>
       <outgoing>SequenceFlow_0sku8gg</outgoing>
     </userTask>
@@ -82,7 +88,7 @@
       <incoming>SequenceFlow_0sku8gg</incoming>
       <outgoing>SequenceFlow_1xzcx2m</outgoing>
     </parallelGateway>
-    <serviceTask id="ServiceTask_3" name="Cambiar estado Rechazado" camunda:expression="${true}">
+    <serviceTask id="ServiceTask_3" name="Cambiar estado Rechazado" camunda:delegateExpression="${digaRequerimientoRechazarDelegate}">
       <incoming>SequenceFlow_21</incoming>
       <outgoing>SequenceFlow_22</outgoing>
     </serviceTask>
@@ -128,7 +134,7 @@
       <incoming>SequenceFlow_02s7b3j</incoming>
     </endEvent>
     <sequenceFlow id="SequenceFlow_02s7b3j" sourceRef="Task_0mzyw2g" targetRef="EndEvent_1arziy9" />
-    <serviceTask id="Task_0mzyw2g" name="Registrar en Pendientes" camunda:expression="${true}">
+    <serviceTask id="Task_0mzyw2g" name="Registrar en Pendientes" camunda:delegateExpression="${mesaPartesRequerimientoPendientesDelegate}">
       <incoming>SequenceFlow_1a5uwn2</incoming>
       <outgoing>SequenceFlow_02s7b3j</outgoing>
     </serviceTask>
@@ -161,6 +167,9 @@
     <sequenceFlow id="SequenceFlow_126u6je" sourceRef="Task_12045xb" targetRef="task_review_req" />
     <sequenceFlow id="SequenceFlow_15" name="" sourceRef="task_review_req" targetRef="ExclusiveGateway_2" />
     <userTask id="task_review_req" name="Revisar requerimiento de Usuario" camunda:assignee="demo">
+      <extensionElements>
+        <camunda:taskListener delegateExpression="${mesaPartesRequerimientoDelegate}" event="complete" />
+      </extensionElements>
       <incoming>SequenceFlow_126u6je</incoming>
       <outgoing>SequenceFlow_15</outgoing>
     </userTask>

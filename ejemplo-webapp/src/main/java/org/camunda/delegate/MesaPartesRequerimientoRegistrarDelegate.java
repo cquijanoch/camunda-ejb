@@ -11,9 +11,9 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 
-@Named("mesaPartesRequerimientoDelegate")
+@Named("mesaPartesRequerimientoRegistrarDelegate")
 @Stateless
-public class MesaPartesRequerimientoDelegate implements JavaDelegate {
+public class MesaPartesRequerimientoRegistrarDelegate implements JavaDelegate {
 
   private final static Logger LOGGER = Logger.getLogger(EjbJavaDelegate.class.getName());
   

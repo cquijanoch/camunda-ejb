@@ -8,9 +8,9 @@ import javax.inject.Named;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
 
-@Named("requerimientoMesaPartesListener")
+@Named("digaUsuarioValidarListener")
 @Stateless
-public class RequerimientoMesaPartesListener implements TaskListener {
+public class DigaUsuarioValidarListener implements TaskListener {
 
 	private final static Logger LOGGER = Logger.getLogger(UsuarioRequerimientoListener.class.getName());
 
@@ -21,3 +21,4 @@ public class RequerimientoMesaPartesListener implements TaskListener {
 	}
 
 }
+

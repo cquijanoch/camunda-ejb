@@ -69,6 +69,7 @@ public class RequerimientoMesaPartesController {
 		ResponseMessage<GetTaskDto<RequerimientoDto>> response = new ResponseMessage<GetTaskDto<RequerimientoDto>>();
 		GetTaskDto<RequerimientoDto> body = new GetTaskDto<RequerimientoDto>();
 		
+		
 		for(TaskDto taskIndex : activeTasks){
 			RequerimientoDto requerimiento = (RequerimientoDto)taskIndex.getVariable("requerimiento");
 			

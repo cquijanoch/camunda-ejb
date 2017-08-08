@@ -29,7 +29,24 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
 
 		            var process = response.body.task;
 		            settingTabla1.dataset = [];
-		            for (var i = 0; i < process.length; i++) settingTabla1.dataset.push(process[i].headerDto);
+		            
+		            
+		            
+		            for (var i = 0; i < process.length; i++){
+		            	var header = process[i].headerDto;
+		            	var requerimiento = process[i].body;
+		            	var data= {
+				            	'processInstanceId': header.processInstanceId,
+				            	'executionId':header.executionId,
+				            	'taskId':header.taskId,
+				            	'perDNI':requerimiento.usuarioDto.dni,
+				            	'perNom':requerimiento.usuarioDto.nombre,
+				            	'perAsu':requerimiento.asunto
+				            }
+		            	
+		            	settingTabla1.dataset.push(data);
+		            }
+		            
 		            iniciarPosiciones(settingTabla1.dataset);
 		            $scope.tabla1.settings(settingTabla1);
 		            console.log(response);
@@ -57,20 +74,23 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
 		    settingTabla2.dataset = [];
 
 		    var tasks = response.body.task;
+		    
+		    if(tasks != undefined){
 
-		    for (i = 0; i < tasks.length; i++) {
-
-		        var body = tasks[i].body;
-		        var header = tasks[i].headerDto;
-		        var data = {
-		            'perDNI': '',
-		            'perNom': '',
-		            'perAsu': '',
-		            'executionId': header.executionId,
-		            'taskId': header.taskId
-		        }
-
-		        settingTabla2.dataset.push(data);
+			    for (i = 0; i < tasks.length; i++) {
+	
+			        var body = tasks[i].body;
+			        var header = tasks[i].headerDto;
+			        var data = {
+			            'perDNI': '',
+			            'perNom': '',
+			            'perAsu': '',
+			            'executionId': header.executionId,
+			            'taskId': header.taskId
+			        }
+	
+			        settingTabla2.dataset.push(data);
+			    }
 		    }
 
 		    iniciarPosiciones(settingTabla2.dataset);
