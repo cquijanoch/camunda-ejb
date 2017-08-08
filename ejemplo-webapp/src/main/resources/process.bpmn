@@ -87,11 +87,11 @@
       <outgoing>SequenceFlow_22</outgoing>
     </serviceTask>
     <sequenceFlow id="SequenceFlow_20" name="Si" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_2">
-      <conditionExpression xsi:type="tFormalExpression">${aprobado}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${aprobado && validado}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_1xzcx2m" sourceRef="ExclusiveGateway_0t7ffwt" targetRef="ExclusiveGateway_1" />
     <sequenceFlow id="SequenceFlow_21" name="No" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_3">
-      <conditionExpression xsi:type="tFormalExpression">${not aprobado}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${not aprobado || not validado}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_1u7wkt9" sourceRef="ExclusiveGateway_09c9p4o" targetRef="task_review_req_diga" />
     <sequenceFlow id="SequenceFlow_0oaj013" sourceRef="ExclusiveGateway_09c9p4o" targetRef="Task_1411tui" />
@@ -102,7 +102,7 @@
       <incoming>SequenceFlow_0gumwkj</incoming>
       <outgoing>SequenceFlow_1tyhcmt</outgoing>
       <multiInstanceLoopCharacteristics>
-        <loopCardinality xsi:type="tFormalExpression">3</loopCardinality>
+        <loopCardinality xsi:type="tFormalExpression">2</loopCardinality>
       </multiInstanceLoopCharacteristics>
     </callActivity>
     <endEvent id="EndEvent_3">
