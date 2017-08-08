@@ -120,7 +120,7 @@
     <boundaryEvent id="BoundaryEvent_1elgq4e" attachedToRef="Task_1iwmc3s">
       <outgoing>SequenceFlow_1a5uwn2</outgoing>
       <timerEventDefinition>
-        <timeDuration xsi:type="tFormalExpression">PT3S</timeDuration>
+        <timeDuration xsi:type="tFormalExpression">PT5M</timeDuration>
       </timerEventDefinition>
     </boundaryEvent>
     <sequenceFlow id="SequenceFlow_1a5uwn2" sourceRef="BoundaryEvent_1elgq4e" targetRef="Task_0mzyw2g" />
