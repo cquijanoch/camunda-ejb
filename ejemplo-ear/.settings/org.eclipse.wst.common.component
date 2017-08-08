@@ -14,5 +14,8 @@
         <dependent-module archiveName="mybatis-3.0.2.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/mybatis/mybatis/3.0.2/mybatis-3.0.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="javax.inject-1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/inject/javax.inject/1/javax.inject-1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

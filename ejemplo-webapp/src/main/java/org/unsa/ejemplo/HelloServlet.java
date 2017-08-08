@@ -9,13 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.unsa.business.Foo;
 
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @EJB
-    private Foo foo;
 
     public HelloServlet() {}
 
@@ -26,7 +23,6 @@ public class HelloServlet extends HttpServlet {
         writer.println("<head><title>Basura</title></head>");
         writer.println("<body>");
         writer.println("    <h3>Roycer GGAAYYY!</h3>");
-        writer.println("    <p><b> FOO :</b> " + foo.decirOtraCosa() + "</p>");
         writer.println("<body>");
         writer.println("</html>");
         writer.close();

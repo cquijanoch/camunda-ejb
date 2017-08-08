@@ -2,68 +2,86 @@ package org.unsa.mybatis.bean;
 
 public class BandejaDiga {
 	
-	private Integer bandejaMesaPartesId;
-	private String estado;
-	private String bandejaMesaPartesEstado;
-	private String bandejaMesaPartesDetalle;
-	private String requerimientoId;
-	private String requerimientoAsunto;
-	private String usuarioId;
-	private String usuarioNombre;
-	private String usuarioDni;
-	
-	public Integer getBandejaMesaPartesId() {
-		return bandejaMesaPartesId;
+	private Integer id;
+	private String estadoMesaPartes;
+	private String detalle;
+	private Integer requerimientoId;
+	private String asunto;
+	private Integer usuarioId;
+	private String nombre;
+	private String dni;
+	private String estadoDiga;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setBandejaMesaPartesId(Integer bandejaMesaPartesId) {
-		this.bandejaMesaPartesId = bandejaMesaPartesId;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public String getEstado() {
-		return estado;
+
+	public String getDetalle() {
+		return detalle;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
-	public String getBandejaMesaPartesEstado() {
-		return bandejaMesaPartesEstado;
-	}
-	public void setBandejaMesaPartesEstado(String bandejaMesaPartesEstado) {
-		this.bandejaMesaPartesEstado = bandejaMesaPartesEstado;
-	}
-	public String getBandejaMesaPartesDetalle() {
-		return bandejaMesaPartesDetalle;
-	}
-	public void setBandejaMesaPartesDetalle(String bandejaMesaPartesDetalle) {
-		this.bandejaMesaPartesDetalle = bandejaMesaPartesDetalle;
-	}
-	public String getRequerimientoId() {
+
+	public Integer getRequerimientoId() {
 		return requerimientoId;
 	}
-	public void setRequerimientoId(String requerimientoId) {
+
+	public void setRequerimientoId(Integer requerimientoId) {
 		this.requerimientoId = requerimientoId;
 	}
-	public String getRequerimientoAsunto() {
-		return requerimientoAsunto;
+
+	public String getAsunto() {
+		return asunto;
 	}
-	public void setRequerimientoAsunto(String requerimientoAsunto) {
-		this.requerimientoAsunto = requerimientoAsunto;
+
+	public void setAsunto(String asunto) {
+		this.asunto = asunto;
 	}
-	public String getUsuarioId() {
+
+	public Integer getUsuarioId() {
 		return usuarioId;
 	}
-	public void setUsuarioId(String usuarioId) {
+
+	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
 	}
-	public String getUsuarioNombre() {
-		return usuarioNombre;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public void setUsuarioNombre(String usuarioNombre) {
-		this.usuarioNombre = usuarioNombre;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public String getUsuarioDni() {
-		return usuarioDni;
+
+	public String getDni() {
+		return dni;
 	}
-	public void setUsuarioDni(String usuarioDni) {
-		this.usuarioDni = usuarioDni;
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
+
+	public String getEstadoMesaPartes() {
+		return estadoMesaPartes;
+	}
+
+	public void setEstadoMesaPartes(String estadoMesaPartes) {
+		this.estadoMesaPartes = estadoMesaPartes;
+	}
+
+	public String getEstadoDiga() {
+		return estadoDiga;
+	}
+
+	public void setEstadoDiga(String estadoDiga) {
+		this.estadoDiga = estadoDiga;
+	}
+	
 }

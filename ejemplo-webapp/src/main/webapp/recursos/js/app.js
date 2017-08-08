@@ -15,15 +15,15 @@ app.config(function($routeProvider){
      })
      .when('/personal', {
     	 controller: 'PersonalController',
-         templateUrl : 'views/personal.html'//mesa de partes
+         templateUrl : 'views/mesaPartes.html'//mesa de partes
      })
      .when('/pagos', {
     	 controller: 'PagosController',
-         templateUrl : 'views/pagos.html'//usuario
+         templateUrl : 'views/usuario.html'//usuario
      })
      .when('/planillas', {
     	 controller: 'PlanillasController',
-         templateUrl : 'views/planillas.html'//diga
+         templateUrl : 'views/diga.html'//diga
      })
      .when('/tesoreria', {
     	 controller: 'TesoreriaController',

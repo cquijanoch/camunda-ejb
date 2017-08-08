@@ -1,7 +1,7 @@
 app.service("UserService",function(SendRequest){
 	
 	this.getAll = function(url,request){
-		return SendRequest.noAuthenticatedRequest('GET',url,null);
+		return SendRequest.noAuthenticatedRequest('GET',url,request);
 	};
 	
 	this.add = function(url,request){
@@ -10,10 +10,6 @@ app.service("UserService",function(SendRequest){
 	
 	this.update = function(url,request){
 		return SendRequest.noAuthenticatedRequest('PUT',url,request)
-	}
-	
-	this.getTasks = function(url,request){
-		return SendRequest.noAuthenticatedRequest('GET',url,request)
 	}
 	
 });

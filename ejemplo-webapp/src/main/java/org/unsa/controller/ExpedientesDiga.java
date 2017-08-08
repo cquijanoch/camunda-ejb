@@ -4,44 +4,69 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
-import org.unsa.business.Bar;
-import org.unsa.dto.ExpedienteDigaDto;
-import org.unsa.dto.PersonaDto;
-import org.unsa.mybatis.bean.Contoh;
+import org.unsa.business.DigaBusiness;
+import org.unsa.dto.ReqMesaPartesDto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
-@Path("expedientesDiga")
+@Path("/expedientesDiga")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ExpedientesDiga {
   
 	@EJB
-	Bar bar;
+	private DigaBusiness requerimientos;
 	
-    @GET
-    public List<ExpedienteDigaDto> listarExpedientes(){
-    	List<ExpedienteDigaDto> lista=new ArrayList<ExpedienteDigaDto>();
-    	ExpedienteDigaDto exp1=new ExpedienteDigaDto();
-    	ExpedienteDigaDto exp2=new ExpedienteDigaDto();
-    	
-    	exp1.setDni("77777777");
-    	exp1.setNombre("alonso silva");
-    	exp1.setDetalle("monto de 1000");
-    	
-    	exp2.setDni("77766666");
-    	exp2.setNombre("abel silva");
-    	exp2.setDetalle("monto de 5000");
-    	
-    	lista.add(exp1);
-    	lista.add(exp2);
-    	return lista;
-    }
+	@GET
+	@Path("bandejaSinRevision")
+	public List<ReqMesaPartesDto> listarRequerimientosSinRevision() {
+		List<ReqMesaPartesDto> listaRequerimientos = new ArrayList<ReqMesaPartesDto>();
+		listaRequerimientos = (List<ReqMesaPartesDto>) requerimientos.listaReqDiga().get("requerimientos");
+
+		return listaRequerimientos;
+	}
+	
+	@PUT
+	@Path("aprobarUsuario")
+	public void aprobarUsuario(ReqMesaPartesDto requerimiento) {
+		Map<String,Object> request=new HashMap<String, Object>();
+		request.put("requerimiento", requerimiento);
+		requerimientos.revisarAprobadoUsuarioDiga(request);
+		
+	}
+	
+	@PUT
+	@Path("aprobarRequisito")
+	public void aprobarRequisito(ReqMesaPartesDto requerimiento) {
+		Map<String,Object> request=new HashMap<String, Object>();
+		request.put("requerimiento", requerimiento);
+		requerimientos.revisarAprobadoReqDiga(request);
+		
+	}
+	
+	@PUT
+	@Path("desaprobarUsuario")
+	public void desaprobarUsuario(ReqMesaPartesDto requerimiento) {
+		Map<String,Object> request=new HashMap<String, Object>();
+		request.put("requerimiento", requerimiento);
+		requerimientos.revisarDesaprobadoUsuarioDiga(request);
+		
+	}
+	
+	@PUT
+	@Path("desaprobarRequisito")
+	public void desaprobarRequisito(ReqMesaPartesDto requerimiento) {
+		Map<String,Object> request=new HashMap<String, Object>();
+		request.put("requerimiento", requerimiento);
+		requerimientos.revisarDesaprobadoReqDiga(request);
+		
+	}
 
    
 }

@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 
-import org.camunda.EjbJavaDelegate;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -15,7 +14,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 @Stateless
 public class MesaPartesRequerimientoRegistrarDelegate implements JavaDelegate {
 
-  private final static Logger LOGGER = Logger.getLogger(EjbJavaDelegate.class.getName());
+  private final static Logger LOGGER = Logger.getLogger(MesaPartesRequerimientoRegistrarDelegate.class.getName());
   
   public void execute(DelegateExecution execution) throws Exception {
 

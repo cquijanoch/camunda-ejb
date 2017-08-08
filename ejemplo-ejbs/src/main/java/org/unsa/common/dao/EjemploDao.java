@@ -11,7 +11,7 @@ public class EjemploDao extends GeneralDao{
 	
 	public List<Contoh> getAllContoh()
 	{
-		ContohMapper mapper = getSession().getMapper(ContohMapper.class);
+		ContohMapper mapper = getSessionFactory().openSession().getMapper(ContohMapper.class);
         return  mapper.selectAll();
         
 	}

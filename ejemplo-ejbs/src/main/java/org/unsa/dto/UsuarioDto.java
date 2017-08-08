@@ -10,7 +10,8 @@ public class UsuarioDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nombre;
-	private Integer dni;
+	private String dni;
+	private String asunto;
 	
 	public UsuarioDto() {
 		// TODO Auto-generated constructor stub
@@ -32,12 +33,20 @@ public class UsuarioDto implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Integer getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(Integer dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
+	}
+
+	public String getAsunto() {
+		return asunto;
+	}
+
+	public void setAsunto(String asunto) {
+		this.asunto = asunto;
 	}
 
 	public static long getSerialversionuid() {
