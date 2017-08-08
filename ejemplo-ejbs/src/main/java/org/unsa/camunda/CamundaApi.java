@@ -14,10 +14,11 @@ public interface CamundaApi {
 	void finishProcess(ProcessDto process);
 	List<TaskDto> getTaskByProcessInstance(ProcessDto process);
 	List<TaskDto> getTaskByTaskId(String taskId,String procesdefinitionKey);
+	List<TaskDto> getActiveTaskByProcessInstance(String processInstanceId);
 	TaskDto completeTask(TaskDto task);
 	List<ProcessDto> getAllInstanceProcess(String processDefinitionKey);
 	ProcessDto getProcess(String processInstanceId);
 	ProcessDto getSubprocess(String parentProcess,String childProcess);
+	List<TaskDto> getActiveTaskBySubProcess(String parentProcessdefinitionKey,String childparentProcessdefinitionKey,String taskId);
 	
-
 }

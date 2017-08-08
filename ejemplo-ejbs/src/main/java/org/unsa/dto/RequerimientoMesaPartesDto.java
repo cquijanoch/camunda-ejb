@@ -1,11 +1,10 @@
 package org.unsa.dto;
 
-public class RequerimientoDto {
-	
+public class RequerimientoMesaPartesDto {
 	private Integer requerimientoId;
 	private String asunto;
 	private UsuarioDto usuarioDto;
-	private boolean completed;
+	private String detalle;
 	
 	public Integer getRequerimientoId() {
 		return requerimientoId;
@@ -25,13 +24,11 @@ public class RequerimientoDto {
 	public void setUsuarioDto(UsuarioDto usuarioDto) {
 		this.usuarioDto = usuarioDto;
 	}
-	
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
+	public String getDetalle() {
+		return detalle;
 	}
-	
-	public boolean getCompleted() {
-		return completed;
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
 
 }
