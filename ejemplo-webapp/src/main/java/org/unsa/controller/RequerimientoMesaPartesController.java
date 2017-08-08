@@ -18,6 +18,7 @@ import org.unsa.camunda.CamundaApi;
 import org.unsa.dto.HeaderDto;
 import org.unsa.dto.ProcessDto;
 import org.unsa.dto.RequerimientoDto;
+import org.unsa.dto.RequerimientoMesaPartesDto;
 import org.unsa.dto.TaskDto;
 import org.unsa.dto.UserTaskDto;
 import org.unsa.message.GetTaskDto;
@@ -38,13 +39,20 @@ public class RequerimientoMesaPartesController {
 	
 	@POST
 	@Path("/save")
-	public ResponseMessage<GetTaskDto<RequerimientoDto>> save(RequestMessage<RequerimientoDto> request) {
+	public ResponseMessage<GetTaskDto<RequerimientoMesaPartesDto>> saveAnexo(RequestMessage<RequerimientoMesaPartesDto> request) {
 		
-		String keySubprocess = "RegistrarReq";
+		RequerimientoMesaPartesDto requerimiento = request.getBody();
+		HeaderDto header = request.getHeader();
+		
 		TaskDto userTask = new TaskDto();
-		 Map<String,Object>  variables= new HashMap<String,Object>();
-		 userTask.setVariables(variables);
+		userTask.setExecutionId(header.getExecutionId());
+		userTask.setTaskId(header.getTaskId());
+		
+		Map<String,Object>  variables= new HashMap<String,Object>();
+		variables.put("RequerimientoMesaPartesDto", requerimiento);
+		userTask.setVariables(variables);
 		camundaApi.completeTask(userTask);
+		
 		return null;
 	}
 	
