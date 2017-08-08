@@ -178,6 +178,9 @@
     <sequenceFlow id="SequenceFlow_0gz64bq" sourceRef="StartEvent_2" targetRef="Task_013mrr1" />
     <sequenceFlow id="SequenceFlow_0q166ws" sourceRef="Task_013mrr1" targetRef="Task_12045xb" />
     <userTask id="Task_013mrr1" name="Ingresar Datos de Usuario">
+      <extensionElements>
+        <camunda:taskListener delegateExpression="${usuarioRequerimientoListener}" event="complete" />
+      </extensionElements>
       <incoming>SequenceFlow_0gz64bq</incoming>
       <outgoing>SequenceFlow_0q166ws</outgoing>
     </userTask>

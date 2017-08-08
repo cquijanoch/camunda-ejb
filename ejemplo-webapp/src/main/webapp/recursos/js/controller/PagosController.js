@@ -1,9 +1,10 @@
 app.controller("PagosController", function($scope, UserService, modal) {
 	$scope.usuarios = {};
 	$scope.requerimiento={};
-	
+	$scope.load=false;
 
 	$scope.guardarUsuario = function() {
+		$scope.load=true;
 		$scope.request = {
 			    header: {},
 			    body: {
@@ -17,20 +18,13 @@ app.controller("PagosController", function($scope, UserService, modal) {
 				function(response) {
 					// modal.mensajeConfirmacion($scope,"SI INGRESO
 					// CORRECTAMENTE",function(){},400);
+					
 					modal.mensaje("CONFIRMACION","SI INGRESO CORRECTAMENTE");
 				}, function(error) {
+					
 					alert('Error');
 				});
 		
 	};
-	
-	UserService.getTasks("resources/registrarRequerimiento",null).then(
-			function(response){
-				console.log('Exito')
-			},
-			function(error){
-				console.log('Error');
-			}
-	)
 
 });

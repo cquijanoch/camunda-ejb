@@ -50,7 +50,7 @@ public class RequerimientoController {
 		if (activeTasks.size() == 1) {
 			 userTask = activeTasks.get(0);
 			 Map<String,Object>  variables= new HashMap<String,Object>();
-			 variables.put("requerimiento", requerimiento);
+			 variables.put("RequerimientoDto", requerimiento);
 			 userTask.setVariables(variables);
 			camundaApi.completeTask(userTask);
 		}
@@ -87,7 +87,7 @@ public class RequerimientoController {
 		
 		
 		for(TaskDto taskIndex : activeTasks){
-			RequerimientoDto requerimiento = (RequerimientoDto)taskIndex.getVariable("requerimiento");
+			RequerimientoDto requerimiento = (RequerimientoDto)taskIndex.getVariable("RequerimientoDto");
 			
 			HeaderDto header = new HeaderDto();
 			header.setProcessInstanceId(taskIndex.getProcessInstanceId());

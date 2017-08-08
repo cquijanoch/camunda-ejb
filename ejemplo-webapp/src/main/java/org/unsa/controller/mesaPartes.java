@@ -42,11 +42,8 @@ public class mesaPartes {
 		
 		RequerimientoDto requerimiento = request.getBody();
 		this.requerimientoBusiness.save(requerimiento);
-			
-
+		
 		HeaderDto header = request.getHeader();
-		
-		
 		TaskDto userTask= new TaskDto();
 
 		userTask.setExecutionId(header.getExecutionId());
@@ -74,12 +71,15 @@ public class mesaPartes {
 		
 		
 		for(TaskDto taskIndex : activeTasks){
+			RequerimientoDto requerimiento = (RequerimientoDto)taskIndex.getVariable("RequerimientoDto");
 			HeaderDto header = new HeaderDto();
 			header.setProcessInstanceId(taskIndex.getProcessInstanceId());
 			header.setExecutionId(taskIndex.getExecutionId());
 			header.setTaskId(taskIndex.getTaskId());
+			
 			UserTaskDto<RequerimientoDto> task = new UserTaskDto<RequerimientoDto>();
 			task.setHeaderDto(header);
+			task.setBody(requerimiento);
 			body.setTask(task);
 		}
 		
