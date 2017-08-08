@@ -83,8 +83,8 @@ public class CamundaApiImpl  implements CamundaApi {
 
 	@Override
 	public TaskDto completeTask(TaskDto task) {
-		taskService.complete(task.getTaskId());
 		runtimeService.setVariables(task.getExecutionId(), task.getVariables());
+		taskService.complete(task.getTaskId());
 		return task;
 	}
 
@@ -169,6 +169,7 @@ public class CamundaApiImpl  implements CamundaApi {
 		
 		ProcessInstance subProcessInstance =runtimeService.createProcessInstanceQuery()
 				.superProcessInstanceId(parentProcessInstanceId)
+				.processDefinitionKey(childProcessKey)
 				.singleResult();
 		
 		
@@ -186,5 +187,57 @@ public class CamundaApiImpl  implements CamundaApi {
 		
 		return processDto;
 	}
-	
+
+	@Override
+	public List<TaskDto> getActiveTaskByProcessInstance(String processInstanceId) {
+		List<TaskDto> taskDtoList = new ArrayList<TaskDto>();
+
+		TaskQuery query = taskService.createTaskQuery().processInstanceId(processInstanceId);
+
+		List<Task> tasks = query.list();
+
+		for (Task task : tasks) {
+
+			TaskDto taskDto = new TaskDto();
+			taskDto.setName(task.getName());
+			taskDto.setTaskId(task.getId());
+			taskDto.setAssignee(task.getAssignee());
+			taskDto.setProcessInstanceId(task.getProcessInstanceId());
+			taskDto.setExecutionId(task.getExecutionId());
+			taskDto.setVariables(taskService.getVariables(task.getId()));
+			taskDto.setProcessDefinitionKey(task.getProcessDefinitionId());
+			taskDto.setKey(task.getTaskDefinitionKey());
+			taskDtoList.add(taskDto);
+		}
+		return taskDtoList;
+	}
+
+	@Override
+	public List<TaskDto> getActiveTaskBySubProcess(String parentProcessdefinitionKey,
+			String childparentProcessdefinitionKey, String taskId) {
+
+		List<TaskDto> taskDtoList = new ArrayList<TaskDto>();
+
+		TaskQuery query = taskService.createTaskQuery().processDefinitionKey(childparentProcessdefinitionKey)
+				.taskDefinitionKey(taskId);
+
+		List<Task> tasks = query.list();
+
+		for (Task task : tasks) {
+
+			TaskDto taskDto = new TaskDto();
+			taskDto.setName(task.getName());
+			taskDto.setTaskId(task.getId());
+			taskDto.setAssignee(task.getAssignee());
+			taskDto.setProcessInstanceId(task.getProcessInstanceId());
+			taskDto.setExecutionId(task.getExecutionId());
+			taskDto.setVariables(taskService.getVariables(task.getId()));
+			taskDto.setProcessDefinitionKey(task.getProcessDefinitionId());
+			taskDto.setKey(task.getTaskDefinitionKey());
+			taskDtoList.add(taskDto);
+		}
+		return taskDtoList;
+
+	}
+
 }
