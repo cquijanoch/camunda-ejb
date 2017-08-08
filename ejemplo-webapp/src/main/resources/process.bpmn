@@ -167,9 +167,6 @@
     <sequenceFlow id="SequenceFlow_126u6je" sourceRef="Task_12045xb" targetRef="task_review_req" />
     <sequenceFlow id="SequenceFlow_15" name="" sourceRef="task_review_req" targetRef="ExclusiveGateway_2" />
     <userTask id="task_review_req" name="Revisar requerimiento de Usuario" camunda:assignee="demo">
-      <extensionElements>
-        <camunda:taskListener delegateExpression="${mesaPartesRequerimientoDelegate}" event="complete" />
-      </extensionElements>
       <incoming>SequenceFlow_126u6je</incoming>
       <outgoing>SequenceFlow_15</outgoing>
     </userTask>
