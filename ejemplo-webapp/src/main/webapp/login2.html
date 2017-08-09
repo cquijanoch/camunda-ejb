@@ -8,8 +8,7 @@
     <div class="mini-stat-info" align="center">
         <span>{{usuario.nombre}}</span>
     </div>
-    <select class="form-control" ng-disabled="organizaciones.length==1" ng-model="session.organizacion" ng-options="o as o.nombre for o in organizaciones" ng-change="seleccionarOrg()" style="padding: 4px;font-size: 14px;"></select>    
-    <select class="form-control" ng-disabled="session.organizacion.roles.length==1" ng-model="session.rolID" ng-options="r.rolID as r.nombre for r in session.organizacion.roles" style="padding: 4px;font-size: 14px;" ></select>
+    <select class="form-control" ng-disabled="grupos.length==1" ng-model="session.organizacion" ng-options="o as o.nombre for o in grupos" ng-change="seleccionarOrg()" style="padding: 4px;font-size: 14px;"></select>    
 </div>
 <div class="form-group has-feedback">
     <input id="entrada" type="password" class="form-control" placeholder="Contraseña" autofocus ng-model="usuario.password" ng-disabled="bloquear">

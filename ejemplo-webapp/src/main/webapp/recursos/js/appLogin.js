@@ -2,7 +2,7 @@
 var app = angular.module("appLogin", ['ngRoute']);
 
 app.constant('urls', {
-    BASE: '/resources/login',
+    BASE: '/ejemplo-webapp-0.0.1-SNAPSHOT/resources/login',
     BASECONTEXTO: '/ejemplo-webapp-0.0.1-SNAPSHOT/'
 });
 app.config(['$routeProvider','$httpProvider',function($routeProvider,$httpProvider) {
@@ -40,11 +40,10 @@ app.config(['$routeProvider','$httpProvider',function($routeProvider,$httpProvid
 }]);
 app.factory('servicioLogin', ['$http','urls', function($http,urls){
     return{
-        buscarUsuario: function(data,sucess,error){
+        buscarUsuario: function(data,url,sucess,error){
             $http({
                 method: 'POST',
-                url: urls.BASE + "/login",
-                headers: {'Content-Type': 'text/plain'},
+                url: urls.BASE + url,
                 data: data
             }).success( sucess ).error( error);
         },
@@ -72,6 +71,7 @@ app.run(['$rootScope','$location','servicioLogin','urls','$routeParams', functio
 
     $rootScope.usuario = {nombre:"",password:""};
     $rootScope.session = {mensaje:""};
+    $rootScope.grupos = [];
     
     if($location.path() === '/')
         $location.path("#");
@@ -82,7 +82,7 @@ app.run(['$rootScope','$location','servicioLogin','urls','$routeParams', functio
             var objResponse = response.data;
             localStorage.setItem('jwt', objResponse.jwt);
             localStorage.setItem('usuario', window.btoa(JSON.stringify(objResponse.usuario)) );//JSON.stringify({usuarioID:objResponse.usuarioID,nombre:$rootScope.usuario.nombre}) );
-            localStorage.setItem('rol', window.btoa(JSON.stringify(objResponse.rol)) );//JSON.stringify({roldID:$rootScope.rolSel.rolID,nombre:$rootScope.rolSel.nombre}));
+            localStorage.setItem('rol', window.btoa(JSON.stringify(objResponse.rol)) );//JSON.stringify({roldID:$rootScope.rolSel.rolId,nombre:$rootScope.rolSel.nombre}));
             
             
             var funciones = [[],[],[],[],[],[]];
@@ -113,191 +113,54 @@ app.run(['$rootScope','$location','servicioLogin','urls','$routeParams', functio
             servicioLogin.mensaje("MENSAJE","ingrese su password");
             return;
         }
-        if(!$rootScope.session.organizacion || $rootScope.session.organizacion==null){
-            servicioLogin.mensaje("MENSAJE","Seleccine una Organizacion");
-            return;
-        }
-        if(!$rootScope.session.rolID || $rootScope.session.rolID==null){
+     
+        if(!$rootScope.session.rolId || $rootScope.session.rolId==null){
             servicioLogin.mensaje("MENSAJE","Seleccine un Rol");
             return;
         }
         
-        $rootScope.usuario.organizacionID = $rootScope.session.organizacion.organizacionID;
-        $rootScope.usuario.rolID = $rootScope.session.rolID;
+        $rootScope.usuario.rolId = $rootScope.session.rolId;
 
-        var request = new Request($rootScope.usuario.nombre,'web');
-        request.setCmd('login',1,'signin');
-        //request.setMetadataValue('user.password','sh5');
-        request.setData($rootScope.usuario);
         $rootScope.bloquear=true;
-        servicioLogin.buscarUsuario(request,succesIniciarSession,errorIniciarSession);
+        servicioLogin.buscarUsuario($rootScope.usuario,"/signin",succesIniciarSession,errorIniciarSession);
     };
     $rootScope.identificarUsuario = function(){
         if(!$rootScope.usuario.nombre || $rootScope.usuario.nombre==""){
             servicioLogin.mensaje("MENSAJE","ingrese nombre de usuario");
             return;
         }
-        var request = new Request($rootScope.usuario.nombre,'web');
-        request.setCmd('login',1,'search');
-        request.setData($rootScope.usuario);
+        
         $rootScope.bloquear=true;
-        servicioLogin.buscarUsuario(request,function(response){
-            if( response.responseSta ){                
-                $rootScope.organizaciones = response.data;
-                $rootScope.session.organizacion = $rootScope.organizaciones[0];
-                $rootScope.session.rolID = $rootScope.session.organizacion.roles[0].rolID;
+        servicioLogin.buscarUsuario($rootScope.usuario,"/search",function(response){
+            if( response.length>0 ){                
+                $rootScope.grupos = response;
+                $rootScope.session.organizacion = $rootScope.grupos[0];
+                $rootScope.session.rolId = $rootScope.session.organizacion.rolId;
                 $rootScope.bloquear=false;
                 location.replace( "#login" );                
                 return;                
             }
             $rootScope.bloquear=false;
-            $rootScope.session.mensaje = response.responseMsg;
+            $rootScope.session.mensaje = "Usuario no Registrado";
         },function(){
             $rootScope.bloquear=false;
             console.log(response);
         });
         
     };
-    $rootScope.recuperarPassword = function(){
-        if(!$rootScope.usuario.nombre || $rootScope.usuario.nombre==""){
-            servicioLogin.mensaje("MENSAJE","ingrese nombre de usuario");
-            return;
-        }
-        var request = new Request($rootScope.usuario.nombre,'web');
-        request.setCmd('login',1,'recuperar');
-        request.setData($rootScope.usuario);
-        $rootScope.bloquear=true;
-        servicioLogin.recuperarPassword(request,function(response){
-            if( response.responseSta ){               
-                return;                
-            }
-            $rootScope.bloquear=false;
-            $rootScope.session.mensaje = response.responseMsg;
-        },function(){
-            $rootScope.bloquear=false;
-            console.log(response);
-        });
-        
-    };
+    
     $rootScope.seleccionarOrg = function(){
-        $rootScope.session.rolID = $rootScope.session.organizacion.roles[0].rolID;
+        $rootScope.session.rolId = $rootScope.session.organizacion.rolId;
     }
     $rootScope.regresar = function(){
-        $rootScope.organizaciones = [];
+        $rootScope.grupos = [];
         $rootScope.usuario={nombre:"",password:""};
         $rootScope.session = {mensaje:""};
         location.replace( "#regresar" );
         return;
     };  
     
-    $rootScope.validarCodigo = function() {
-        if($rootScope.objConfirm.codGen === $rootScope.objConfirm.codIng) {
-            var request = new Request($rootScope.objConfirm.parCod, 'web');
-            request.setCmd('login', 1, 'registerCompetitor');
-            request.setData({t: "P", m: $rootScope.objConfirm.tipPub, p: $rootScope.objConfirm.parCod, s: $rootScope.objConfirm.sedCod});
-            
-            servicioLogin.buscarUsuario(request, function(success){
-                if (success.response === 'OK') {
-                    if(success.data.expiration) {
-                        $rootScope.objConfirm.men = "El periodo para confirmar su asistencia la curso de capacitación ha finalizado. Por favor contactar al organizador.";
-                        $rootScope.objConfirm.statePublicCod = false;
-                        $rootScope.objConfirm.stateSelection = true;
-                    } else if(success.data.registered) {
-                        $rootScope.objConfirm.men = "Ud. ya forma parte de la capacitación en cuestión";
-                        $rootScope.objConfirm.statePublicCod = false;
-                        $rootScope.objConfirm.stateSelection = true;
-                    } else {
-                        var cap = success.data.cap; 
-                        $rootScope.objConfirm.cap = new Object();
-                        $rootScope.objConfirm.cap.nom = cap.nom;
-                        $rootScope.objConfirm.cap.tip = cap.tip;
-                        $rootScope.objConfirm.cap.cro = cap.cro;
 
-                        $rootScope.objConfirm.par = new Object();
-                        $rootScope.objConfirm.par.ter = false;
-                        $rootScope.objConfirm.estVer = false;
-                        
-                        if($rootScope.objConfirm.tipPub) {
-                            var par = success.data.cap.per; 
-                            $rootScope.objConfirm.par.nom = par.nom;
-                            $rootScope.objConfirm.par.pat = par.pat;
-                            $rootScope.objConfirm.par.mat = par.mat;
-                            $rootScope.objConfirm.parEst = false;                            
-                        } else {
-                            $rootScope.objConfirm.org = success.data.cap.org;
-                            $rootScope.objConfirm.parEst = true;
-                        }
-
-                        $rootScope.objConfirm.statePublicDat = true;
-                    }
-                } else if (success.response === 'BAD')
-                    modal.mensaje("ERROR", success.responseMsg);
-            },function(error){
-                modal.mensaje("MENSAJE", error.responseMsg);
-            });
-        } else
-            servicioLogin.mensaje("ERROR","El código ingresado es incorrecto. Intente otra vez");
-    }; 
-    $rootScope.$watch('objConfirm.par.dni', function(newValue) {
-        if(newValue !== undefined) {
-            var request = new Request($rootScope.objConfirm.parCod, 'web');
-            request.setCmd('login', 1, 'registerCompetitor');
-            request.setData({t: "B", s: $rootScope.objConfirm.sedCod, d: newValue});
-            
-            servicioLogin.buscarUsuario(request, function(success){
-                if (success.response === 'OK') {
-                    if(success.data.expiration) {
-                        $rootScope.objConfirm.men = "El periodo para confirmar su asistencia la curso de capacitación ha finalizado. Por favor contactar al organizador.";
-                        $rootScope.objConfirm.statePublicCod = false;
-                        $rootScope.objConfirm.stateSelection = true;
-                    } else if(success.data.available) {
-                        $rootScope.objConfirm.parEst = false;
-                        $rootScope.objConfirm.estVer = false;
-                    } else {
-                        $rootScope.objConfirm.parEst = true;
-                        $rootScope.objConfirm.estVer = true;
-                        
-                        $rootScope.objConfirm.par.nom = '';
-                        $rootScope.objConfirm.par.pat = '';
-                        $rootScope.objConfirm.par.mat = '';
-                        $rootScope.objConfirm.par.org = '';
-                        $rootScope.objConfirm.par.ter = false;
-                        
-                        $rootScope.objConfirm.men = "Ud. ya se forma parte del sistema como usuario. Contactar al administrador para mayor información";
-                    }
-                } else if (success.response === 'BAD')
-                    modal.mensaje("ERROR", success.responseMsg);
-            },function(error){
-                modal.mensaje("MENSAJE", error.responseMsg);
-            });
-        }
-    });
-    $rootScope.registrarParticipante = function() {
-        var request = new Request($rootScope.objConfirm.parCod, 'web');
-        request.setCmd('login', 1, 'registerCompetitor');
-        
-        if($rootScope.objConfirm.tipPub)
-            request.setData({t: "A", p: $rootScope.objConfirm.parCod, a: $rootScope.objConfirm.par, s: $rootScope.objConfirm.sedCod});
-        else
-            request.setData({t: "N", a: $rootScope.objConfirm.par, c: $rootScope.objConfirm.parCor, s: $rootScope.objConfirm.sedCod});
-        
-        servicioLogin.buscarUsuario(request,function(success){
-            if (success.response === 'OK') {
-                if(success.data.expiration) 
-                    $rootScope.objConfirm.men = "El periodo para confirmar su asistencia la curso de capacitación ha finalizado. Por favor contactar al organizador.";
-                else if(success.data.registered) 
-                    $rootScope.objConfirm.men = "Ud. ya forma parte de la capacitación en cuestión";
-                else
-                    $rootScope.objConfirm.men = "Ud. acaba de ser registrado. Ya es parte de la capacitación FELICIDADES !";
-                 
-                $rootScope.objConfirm.statePublicCod = false;
-                $rootScope.objConfirm.stateSelection = true;
-            } else if (success.response === 'BAD')
-                modal.mensaje("ERROR", success.responseMsg);
-        },function(error){
-            modal.mensaje("MENSAJE", error.responseMsg);
-        });
-    }; 
 }]);
 
 /* Claves del REQUEST*/

@@ -7,28 +7,29 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.unsa.business.MesaPartesBusiness;
+import org.unsa.business.LoginBusiness;
 import org.unsa.config.TokenAuthentication;
-import org.unsa.dto.ReqMesaPartesDto;
-import org.unsa.dto.UsuarioDto;
+import org.unsa.dto.RolDto;
+import org.unsa.dto.UserDto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Stateless
 @Path("/login")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class Login {
+	
+	@EJB
+	LoginBusiness login;
+	
 	@POST
-	public String SignIn(String content) {
+	@Path("search")
+	public List<RolDto> search(UserDto user) {
 
-//		JSONObject jsonObject = new JSONObject(content);
-//		WebRequest wRequest = WebRequest.createFromJSON(jsonObject);
-//		WebResponse wResponse = wRequest.invoke(Sigesmed.MODULO_CONFIGURACION);
-		return "";
+		List<RolDto> roles=(List<RolDto>) login.listarRolesByNickname(user.getNombre()).get("roles");
+		
+		return roles;
 	}
 
 	@HEAD
