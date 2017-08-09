@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.unsa.business.UsuarioBusiness;
 import org.unsa.dto.ProcessDto;
+import org.unsa.dto.RequerimientoDto;
 import org.unsa.dto.UsuarioDto;
 
 @Stateless
@@ -24,10 +25,10 @@ public class Usuarios {
 	private UsuarioBusiness usuarioBusiness;
 
 	@POST
-	public UsuarioDto saveUser(UsuarioDto processDto) {
+	public RequerimientoDto saveRequerimiento(RequerimientoDto processDto) {
 		Map<String,Object> request=new HashMap<String, Object>();
 		request.put("usuarioRequerimiento", processDto);
-		return (UsuarioDto) usuarioBusiness.saveRequerimiento(request).get("usuarioRequerimiento") ;
+		return (RequerimientoDto) usuarioBusiness.saveRequerimiento(request).get("usuarioRequerimiento") ;
 	}
 
 }

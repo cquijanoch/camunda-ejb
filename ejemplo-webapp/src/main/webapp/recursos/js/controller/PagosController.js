@@ -8,13 +8,17 @@ app.controller("PagosController", function($scope, UserService, modal) {
 	};
 
 	$scope.guardarUsuario = function() {
-		$scope.data = {
-				//processDefinitionKey:'Proceso2dfase',
-				usuarioDto:$scope.usuarios
-					
-		}
+		
+		$scope.request = {
+			    body: {
+			        nombre: $scope.usuarios.nombre,
+			        dni: $scope.usuarios.dni,
+			        asunto:$scope.usuarios.asunto,
+			    }
+
+		};
 	
-		UserService.add("resources/registrarUsuario", $scope.data).then(
+		UserService.add("resources/registrarRequerimiento", $scope.request).then(
 				function(response) {
 					// modal.mensajeConfirmacion($scope,"SI INGRESO
 					// CORRECTAMENTE",function(){},400);
