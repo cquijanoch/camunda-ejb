@@ -49,7 +49,7 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
         
     $scope.listar2 = function(){
         
-        UserService.getAll("resources/mesaPartes/bandejaAprobados").then(
+        UserService.getAll("resources/mesapartes/bandejaAprobados").then(
 				function(response){
 //					settingTabla2.dataset = response;
 					settingTabla2.dataset = [];
@@ -63,9 +63,13 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
 					        var body = tasks[i].body;
 					        var header = tasks[i].headerDto;
 					        var data = {
-					            'perDNI': '',
-					            'perNom': '',
-					            'perAsu': '',
+					            'dni': body.dni,
+					            'nombre': body.nombre,
+					            'asunto': body.asunto,
+					            'requerimientoId':body.requerimientoId,
+					            'usuarioId':body.usuarioId,
+					            'id':body.id,
+					            'estado':body.estado,
 					            'executionId': header.executionId,
 					            'taskId': header.taskId
 					        }
@@ -182,7 +186,7 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
     $scope.registrarReq = function(d) {
 	    $scope.reqActual.detalle = d;
 	    
-	    $scope.request = {
+	    var request = {
 		        header: {
 		            executionId: $scope.reqActual.executionId,
 		            taskId: $scope.reqActual.taskId
