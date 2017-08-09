@@ -11,7 +11,8 @@ import org.unsa.dto.UsuarioDto;
 public interface LoginBusiness {
 	
 	public Map<String,Object> listarRolesByNickname(String nickname);
-	
+	public Map<String,Object> identityUser(String nickname,String password);
+	public boolean isValidAuthentication(String tokenRequest);
 
 	
 }

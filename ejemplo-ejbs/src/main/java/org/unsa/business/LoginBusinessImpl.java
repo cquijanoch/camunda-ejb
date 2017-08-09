@@ -9,6 +9,9 @@ import javax.ejb.Stateless;
 
 import org.unsa.common.dao.LoginDao;
 import org.unsa.dto.RolDto;
+import org.unsa.dto.UserDto;
+import org.unsa.identity.TokenAuthentication;
+import org.unsa.identity.TokenHandler;
 
 @Stateless
 public class LoginBusinessImpl implements LoginBusiness {
@@ -29,6 +32,22 @@ public class LoginBusinessImpl implements LoginBusiness {
 		Map<String,Object> request=new HashMap<String, Object>();
 		request.put("roles", roles);
 		return request;
+	}
+	@Override
+	public Map<String, Object> identityUser(String nickname,String password) {
+		UserDto usuario=loginDao.identityUser(nickname,password);
+		if(usuario==null)
+		{
+			throw new NullPointerException();
+		}
+		Map<String,Object> response=new HashMap<String, Object>();
+		response.put("usuario", usuario);
+		response.put("jwt", TokenHandler.getInstance().createTokenForUser(usuario));
+		return response;
+	}
+	@Override
+	public boolean isValidAuthentication(String tokenRequest) {
+		return (new TokenAuthentication()).isValidAuthentication(tokenRequest);
 	}
 	
 	
