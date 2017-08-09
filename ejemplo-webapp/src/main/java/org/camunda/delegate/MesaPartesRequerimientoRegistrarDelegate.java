@@ -26,13 +26,14 @@ public class MesaPartesRequerimientoRegistrarDelegate implements JavaDelegate {
 	public void execute(DelegateExecution execution) throws Exception {
 		
 		Map<String, Object> variables = execution.getVariables();
+		DelegateExecution parentExecution = execution.getProcessInstance();
 
-		if (!variables.containsKey("mutex")) {
+		if (parentExecution.getVariable(("mutex")) == null) {
 			ReqMesaPartesDto registro = (ReqMesaPartesDto) variables.get("requerimiento");
 
 			requerimientos.registrarReqMesaPartes(variables);
 			requerimientos.derivarReqMesaPartes(variables);
-			execution.setVariable("mutex", false);
+			parentExecution.setVariable("mutex", false);
 		}
   }
 

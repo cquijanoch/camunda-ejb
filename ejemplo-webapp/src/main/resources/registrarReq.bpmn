@@ -17,7 +17,7 @@
       <bpmn:incoming>SequenceFlow_09jsrr8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1uwtucg</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Task_0vgp3by" name="Registrar requerimiento" camunda:expression="${true}">
+    <bpmn:serviceTask id="Task_0vgp3by" name="Registrar requerimiento" camunda:delegateExpression="${mesaPartesRequerimientoRegistrarDelegate}">
       <bpmn:incoming>SequenceFlow_1uwtucg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_069hdf4</bpmn:outgoing>
     </bpmn:serviceTask>

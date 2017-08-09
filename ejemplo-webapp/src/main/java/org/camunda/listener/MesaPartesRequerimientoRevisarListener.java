@@ -30,12 +30,15 @@ public class MesaPartesRequerimientoRevisarListener implements TaskListener  {
 		
 		if(registro.getEstado().equals(Constantes.ESTADO_REQ_APROBADO)){
 			requerimientos.aprobarReqMesaPartes(variables);
-			variables.put("completed", true);
+			delegateTask.setVariable("completed", true);
 		}
 		
 		else{
 			requerimientos.desaprobarReqMesaPartes(variables);
+			delegateTask.setVariable("completed", false);
 		};
+		
+		delegateTask.setVariable("requerimiento",registro);
 		
 	}
 }
