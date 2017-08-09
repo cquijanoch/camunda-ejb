@@ -106,12 +106,14 @@ public class ExpedienteDigaController {
 		GetTaskDto<ReqMesaPartesDto> body = new GetTaskDto<ReqMesaPartesDto>();
 
 		for (TaskDto taskIndex : activeTasksVU) {
+			ReqMesaPartesDto requerimiento = (ReqMesaPartesDto)taskIndex.getVariable("ReqMesaPartesDto");
 			HeaderDto header = new HeaderDto();
 			header.setProcessInstanceId(taskIndex.getProcessInstanceId());
 			header.setExecutionId(taskIndex.getExecutionId());
 			header.setTaskId(taskIndex.getTaskId());
 			UserTaskDto<ReqMesaPartesDto> task = new UserTaskDto<ReqMesaPartesDto>();
 			task.setHeaderDto(header);
+			task.setBody(requerimiento);
 			body.setTask(task);
 		}
 		response.setBody(body);

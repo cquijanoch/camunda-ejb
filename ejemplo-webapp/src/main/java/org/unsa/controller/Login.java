@@ -8,7 +8,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.unsa.business.LoginBusiness;
-import org.unsa.config.TokenAuthentication;
 import org.unsa.dto.RolDto;
 import org.unsa.dto.UserDto;
 
@@ -31,6 +30,15 @@ public class Login {
 		
 		return roles;
 	}
+	
+	@POST
+	@Path("signin")
+	public List<RolDto> signin(UserDto user) {
+
+		List<RolDto> roles=(List<RolDto>) login.identityUser(user.getNombre(),user.getPassword()).get("permisos");
+		
+		return roles;
+	}
 
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +49,7 @@ public class Login {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		// token no autorizado
-		if (!(new TokenAuthentication()).isValidAuthentication(autorizacion)) {
+		if (!(login.isValidAuthentication(autorizacion))) {
 			System.out.println("TOKEN INVALIDO");
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		}

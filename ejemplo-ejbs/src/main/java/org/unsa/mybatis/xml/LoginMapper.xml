@@ -12,5 +12,14 @@
 		
 		WHERE uu.nickname = #{nickname};
 	</select>
+	
+	<select id="getUserByNickAndPass"  parameterType="hashmap" resultType="org.unsa.mybatis.bean.User">
+		SELECT  				
+		 	uu.nickname nickname
+		 	,uu.password password
+		 	,uu.id_usuario id
+		FROM userr uu 		
+		WHERE uu.nickname = #{nickname} and uu.password=#{password};
+	</select>
 
 </mapper>

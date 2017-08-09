@@ -4,7 +4,7 @@ public class User {
 	
 	private Integer id;
 	private String  nickname;
-	private String pasword;
+	private String password;
 	
 	public User(){
 		
@@ -26,12 +26,12 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getPasword() {
-		return pasword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPasword(String pasword) {
-		this.pasword = pasword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	
