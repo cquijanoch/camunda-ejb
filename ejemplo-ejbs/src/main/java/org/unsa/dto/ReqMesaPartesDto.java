@@ -86,5 +86,8 @@ public class ReqMesaPartesDto {
 	public void setEstadoDiga(String estadoDiga) {
 		this.estadoDiga = estadoDiga;
 	}
+
+	
+	
  
 }

@@ -28,5 +28,4 @@ public class ExpedienteDigaDto {
 		this.detalle = detalle;
 	}
 	
-	
 }

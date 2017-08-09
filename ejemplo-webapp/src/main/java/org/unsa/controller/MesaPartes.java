@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Stateless
-@Path("/mesaPartes")
+@Path("/mesaPartes2")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class MesaPartes {

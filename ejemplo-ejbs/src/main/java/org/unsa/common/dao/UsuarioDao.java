@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.apache.ibatis.session.SqlSession;
 import org.unsa.dto.ReqMesaPartesDto;
+import org.unsa.dto.RequerimientoDto;
 import org.unsa.dto.UsuarioDto;
 import org.unsa.mybatis.bean.BandejaMesaPartes;
 import org.unsa.mybatis.bean.Requerimiento;
@@ -37,7 +38,7 @@ public class UsuarioDao extends GeneralDao {
 		return usuarioDto;
 	}
 	
-	public ReqMesaPartesDto saveRequerimiento(UsuarioDto usuarioDto) {
+	public ReqMesaPartesDto saveRequerimiento(RequerimientoDto requerimientoUsuario) {
 		 SqlSession sqlSession=getSessionFactory().openSession();
 		 ReqMesaPartesDto requerimiento=new ReqMesaPartesDto();
 		try {
@@ -45,11 +46,13 @@ public class UsuarioDao extends GeneralDao {
 			RequerimientoMapper mapper = sqlSession.getMapper(RequerimientoMapper.class);
 			Requerimiento requerimientoBean = new Requerimiento();
 
-			requerimientoBean.setUsuarioId(usuarioDto.getId());
-			requerimientoBean.setAsunto(usuarioDto.getAsunto());
+			requerimientoBean.setUsuarioId(requerimientoUsuario.getId());
+			requerimientoBean.setAsunto(requerimientoUsuario.getAsunto());
+			requerimientoBean.setUsuarioDni(requerimientoUsuario.getDni());
 			mapper.saveReq(requerimientoBean);
 			requerimiento.setUsuarioId(requerimientoBean.getUsuarioId());
 			requerimiento.setDni(requerimientoBean.getUsuarioDni());
+			requerimiento.setNombre(requerimientoUsuario.getNombre());
 			requerimiento.setAsunto(requerimientoBean.getAsunto());
 			requerimiento.setRequerimientoId(requerimientoBean.getRequerimientoId());
 			

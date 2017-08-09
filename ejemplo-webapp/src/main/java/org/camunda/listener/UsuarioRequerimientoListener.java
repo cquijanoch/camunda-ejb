@@ -8,21 +8,26 @@ import javax.ejb.Stateless;
 import javax.inject.Named;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
-import org.unsa.dto.RequerimientoDto;
+import org.unsa.business.UsuarioBusiness;
+import org.unsa.dto.ReqMesaPartesDto;
 
 
 @Named("usuarioRequerimientoListener")
 @Stateless
 public class UsuarioRequerimientoListener implements TaskListener {
+	
+	@EJB
+	private UsuarioBusiness usuarioBusiness;
 
 	private final static Logger LOGGER = Logger.getLogger(UsuarioRequerimientoListener.class.getName());
 
 	@Override
 	public void notify(DelegateTask delegateTask) {
+		
 		Map<String,Object> variables =delegateTask.getVariables();
-		RequerimientoDto requerimiento = (RequerimientoDto)variables.get("RequerimientoDto");
-		variables.put("RequerimientoDto", requerimiento);
-		delegateTask.setVariables(variables);
+		ReqMesaPartesDto requerimiento =(ReqMesaPartesDto)usuarioBusiness.saveRequerimiento(variables).get("ReqMesaPartesDto") ;
+		delegateTask.setVariable("ReqMesaPartesDto", requerimiento);
+		
 	}
 
 }
