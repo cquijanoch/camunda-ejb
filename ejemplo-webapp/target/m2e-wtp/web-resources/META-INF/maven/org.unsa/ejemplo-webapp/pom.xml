@@ -77,6 +77,11 @@
 			<version>2.0.1</version>
 		</dependency>
 
+		<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.6.0</version>
+        </dependency>
 		<!-- Java EE 6 Specification -->
 		<!-- <dependency> -->
 		<!-- <groupId>org.jboss.spec</groupId> -->

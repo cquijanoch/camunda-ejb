@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.unsa.mybatis.mapper.LoginMapper">
+	
+	<select id="getRolesByNickName"  parameterType="String" resultType="org.unsa.mybatis.bean.Rol">
+		SELECT  				
+		 	rr.id_rol rolId
+		 	,rr.nombre nombre
+		FROM userr uu 
+		INNER JOIN user_rol ur	ON uu.id_usuario = ur.id_usuario
+		INNER JOIN rol rr	ON rr.id_rol = ur.id_rol
+		
+		WHERE uu.nickname = #{nickname};
+	</select>
+
+</mapper>

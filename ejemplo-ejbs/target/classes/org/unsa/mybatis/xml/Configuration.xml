@@ -20,5 +20,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper resource="org/unsa/mybatis/xml/RequerimientoMapper.xml"/>
         <mapper resource="org/unsa/mybatis/xml/BandejaDigaMapper.xml"/>
         <mapper resource="org/unsa/mybatis/xml/BandejaMesaPartesMapper.xml"/>
+        <mapper resource="org/unsa/mybatis/xml/LoginMapper.xml"/>
     </mappers>
 </configuration>
