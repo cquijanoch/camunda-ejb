@@ -1,0 +1,21 @@
+<div class="mini-stat clearfix" >
+    <div class="col-xs-12" align="center" >
+        <span class="alert-icon" ng-click="regresar()" style="position: absolute;left: 0;">
+            <i class="fa fa-chevron-left" style="color: #aec785;"></i>
+        </span>
+    <span class="mini-stat-icon orange" style="margin: 0 auto;float:none"><i class="fa fa-user"></i></span>
+    </div>
+    <div class="mini-stat-info" align="center">
+        <span>{{usuario.nombre}}</span>
+    </div>
+    <select class="form-control" ng-disabled="organizaciones.length==1" ng-model="session.organizacion" ng-options="o as o.nombre for o in organizaciones" ng-change="seleccionarOrg()" style="padding: 4px;font-size: 14px;"></select>    
+    <select class="form-control" ng-disabled="session.organizacion.roles.length==1" ng-model="session.rolID" ng-options="r.rolID as r.nombre for r in session.organizacion.roles" style="padding: 4px;font-size: 14px;" ></select>
+</div>
+<div class="form-group has-feedback">
+    <input id="entrada" type="password" class="form-control" placeholder="Contraseña" autofocus ng-model="usuario.password" ng-disabled="bloquear">
+    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+</div>
+<button class="btn btn-lg btn-login btn-block" type="submit" ng-click="iniciarSession()" ng-disabled="bloquear">Iniciar Session</button>
+<script>
+    document.getElementById("entrada").focus();
+</script>

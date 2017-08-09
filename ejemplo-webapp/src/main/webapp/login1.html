@@ -1,0 +1,17 @@
+<div class="mini-stat clearfix">
+    <div class="col-xs-12" align="center">
+    <span class="mini-stat-icon orange" style="margin: 0 auto;float:none;opacity:0.5"><i class="fa fa-user"></i></span>
+    </div>
+    <div class="mini-stat-info" align="center">
+        <span style="height:92px"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <input id="entrada" type="text" class="form-control" placeholder="Usuario" autofocus ng-model="usuario.nombre" ng-disabled="bloquear">
+    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+</div>
+<div ng-show="session.mensaje!=''" class="alert alert-block alert-danger fade in" >{{session.mensaje}}</div>
+<button class="btn btn-lg btn-login btn-block" ng-click="identificarUsuario()" ng-disabled="bloquear">Siguiente</button>
+<script>
+    document.getElementById("entrada").focus();
+</script>
