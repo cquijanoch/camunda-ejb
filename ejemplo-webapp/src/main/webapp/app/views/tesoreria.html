@@ -1,0 +1,297 @@
+<div class="row"><div class="col-lg-12">
+<section class="panel">
+    <header class="panel-heading">
+        <span>TESORERIA</span>        
+
+    </header>
+    <div>
+        <uib-tabset active="active">
+            <uib-tab index="0" heading="Seleccionar modo de pago" select="listar1()">                
+                <div class="panel-body" >
+                    <div class="tabla-responsiva"><table ng-table="tabla1" class="table table-striped table-hover" show-filter="true" >                        
+                        <tr ng-repeat="d in $data">
+                        	                            
+                            <td data-title="'DNI'" filter="{ perDNI: 'text'}" sortable="'perDNI'">{{d.perDNI}}</td>
+                            <td data-title="'Nombres'" filter="{ perNom: 'text'}" sortable="'perPat'">{{d.perNom}}</td>
+                            <td data-title="'Asunto'" filter="{ perAsu: 'text'}" sortable="'perAsu'">{{d.perAsu}}</td>
+                            
+                            <td data-title="'Id Proceso'" filter="{ processInstanceId: 'text'}" sortable="'processInstanceId'">{{d.processInstanceId}}</td>
+                            
+                            <td data-title="'Modificar'" style="text-align: center">                                
+                                <button class="btn btn-primary btn-xs" ng-click="seleccionarModoPago(d)"><i class="fa fa-pencil" ></i></button>                                
+                            </td>                            
+                        </tr>
+                        </table>
+                    </div>                    
+                </div>
+            </uib-tab>
+            
+            <uib-tab index="1" heading="Girar Cheque" select="listar2()">                
+                <div class="panel-body">
+                    <div class="tabla-responsiva"><table ng-table="tabla2" class="table table-striped table-hover" show-filter="true" >                        
+                        <tr ng-repeat="d in $data">                            
+                            <td data-title="'DNI'" filter="{ perDNI: 'text'}" sortable="'perDNI'">{{d.perDNI}}</td>
+                            <td data-title="'Nombres'" filter="{ perNom: 'text'}" sortable="'perPat'">{{d.perNom}}</td>
+                            <td data-title="'Asunto'" filter="{ perAsu: 'text'}" sortable="'perAsu'">{{d.perAsu}}</td>
+                            <td data-title="'Id Proceso'" filter="{ processInstanceId: 'text'}" sortable="'processInstanceId'">{{d.processInstanceId}}</td>
+                            
+                            <td data-title="'Girar Cheque'" style="text-align: center">                                
+                                <button class="btn btn-primary btn-xs" ng-click="girarCheque(d)"><i class="fa fa-pencil" ></i></button>                                
+                            </td>                            
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            
+            <uib-tab index="2" heading="Depositar Cuenta Bancaria" select="listar3()">                
+                <div class="panel-body">
+                    <div class="tabla-responsiva"><table ng-table="tabla3" class="table table-striped table-hover" show-filter="true" >                        
+                        <tr ng-repeat="d in $data">                            
+                            <td data-title="'DNI'" filter="{ perDNI: 'text'}" sortable="'perDNI'">{{d.perDNI}}</td>
+                            <td data-title="'Nombres'" filter="{ perNom: 'text'}" sortable="'perPat'">{{d.perNom}}</td>
+                            <td data-title="'Asunto'" filter="{ perAsu: 'text'}" sortable="'perAsu'">{{d.perAsu}}</td>
+                            <td data-title="'Id Proceso'" filter="{ processInstanceId: 'text'}" sortable="'processInstanceId'">{{d.processInstanceId}}</td>
+                            
+                            <td data-title="'Ingresar Detalle'" style="text-align: center">                                
+                                <button class="btn btn-primary btn-xs" ng-click="depositarCuenta(d)"><i class="fa fa-pencil" ></i></button>                                
+                            </td>                            
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            
+        </uib-tabset>
+    </div>    
+</section>
+</div></div>
+
+
+<!--Modal para seleccionar modo de pago-->
+<div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">REPORTES</h4>
+      </div>
+      <div class="modal-body">          
+        <div class="form-panel" style="text-align: left;">            
+            <pre>Seleccione las columnas que se van a mostrar en el reporte:</pre>            
+
+			
+			<div class="checkbox">
+			  <label><input type="checkbox" value="" ng-model="modoPago.efectivo">Pagar en efectivo</label>
+			</div>
+			<div class="checkbox">
+			  <label><input type="checkbox" value="" ng-model="modoPago.cheque">Girar Cheque</label>
+			</div>
+			<div class="checkbox disabled">
+			  <label><input type="checkbox" value="" ng-model="modoPago.deposito">Depositar en Cuenta Bancaria</label>
+			</div>
+			
+        </div>          
+          
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>                
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="guardarModoPago(modoPago)"><i class="fa fa-check" ></i>Guardar</button>        
+      </div>        
+    </div>
+  </div>
+</div>
+
+
+
+<!--Pagar Cheque-->
+<div class="modal fade" id="modalCheque" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Pagar en cheque</h4>
+      </div>
+      <div class="modal-body">          
+			<form name ="registroForm" novalidate>		
+				<article class="oneColLeftPortlet">
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Nombres y Apellidos:
+						</div>						
+						<div class="col-md-6 inputArea">							
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input type="text" style="width: 100%; height: 20px;margin: 0px;" tabindex="1" name="Usuario" ng-model="app.usuario.nombres" required /> 
+								</textbox>
+							</div>											
+						</div>					 
+					</div>
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						DNI:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario.dni" required /> 
+								</textbox>
+							</div>
+						</div>					 					 
+					</div>
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						RUC:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario.ruc" required /> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Banco:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox class="inputBuilderBox"> 
+								<select class="form-control" style="height: 25px;margin: 2px; padding: 0px;">
+								    <option>Banco 1</option>
+								    <option>Banco 2</option>
+								    <option>Banco 3</option>
+								    <option>Banco 4</option>
+							    </select> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Nro. de Cheque:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario.nrocheque" required /> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+				</article>
+				  
+			</form>
+          
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>                
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="guardarPagoCheque()"><i class="fa fa-check" ></i>Guardar</button>        
+      </div>        
+    </div>
+  </div>
+</div>
+
+<!--Depositar cuenta bancaria-->
+<div class="modal fade" id="modalCuentaBancaria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">REPORTES</h4>
+      </div>
+      <div class="modal-body">          
+
+			<form name ="registroForm" novalidate>		
+				<article class="oneColLeftPortlet">
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Nombres y Apellidos:
+						</div>						
+						<div class="col-md-6 inputArea">							
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input type="text" style="width: 100%; height: 20px;margin: 0px;" tabindex="1" name="Usuario" ng-model="app.usuario.nombres" required /> 
+								</textbox>
+							</div>											
+						</div>					 
+					</div>
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						DNI:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario.dni" required /> 
+								</textbox>
+							</div>
+						</div>					 					 
+					</div>
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						RUC:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario.ruc" required /> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Banco:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox class="inputBuilderBox"> 
+								<select class="form-control" style="height: 25px;margin: 2px; padding: 0px;">
+								    <option>Banco 1</option>
+								    <option>Banco 2</option>
+								    <option>Banco 3</option>
+								    <option>Banco 4</option>
+							    </select> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Nro. de Cuenta:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario.nrocuenta" required /> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+				</article>
+				  
+			</form>       
+          
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>                
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="guardarPagoCuenta()"><i class="fa fa-check" ></i>Guardar</button>        
+      </div>        
+    </div>
+  </div>
+</div>
+
+
+
+
+

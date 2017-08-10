@@ -11,7 +11,7 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
 				function(response){
 //					settingTabla1.dataset = response;
 					
-					 var process = response.body.task;
+					 var process = response.body.task !== null?response.body.task:[];
 			         settingTabla1.dataset = [];
 					
 					for (var i = 0; i < process.length; i++){
@@ -51,10 +51,9 @@ app.controller("PersonalController",function($scope,UserService,modal,NgTablePar
         
         UserService.getAll("resources/mesapartes/bandejaAprobados").then(
 				function(response){
-//					settingTabla2.dataset = response;
-					settingTabla2.dataset = [];
 
-				    var tasks = response.body.task;
+				    var tasks = response.body.task !== null?response.body.task:[];				    			    
+			        settingTabla2.dataset = [];
 				    
 				    if(tasks != undefined){
 

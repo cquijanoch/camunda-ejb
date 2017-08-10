@@ -40,7 +40,7 @@ public class DigaRequerimientoRevisarListener implements TaskListener {
 		else{
 			requerimientos.revisarDesaprobadoReqDiga(request);
 		}
-		delegateTask.setVariable("validado",estado);
+		delegateTask.setVariable("aprobado",estado);
 
 	}
 

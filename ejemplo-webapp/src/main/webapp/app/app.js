@@ -6,25 +6,6 @@ var app= angular.module("demoApp",[
    
 app.config(function($routeProvider){
 	
-//	 $httpProvider.interceptors.push(['$q','urls',function($q,urls){
-//	        return{
-//	            'request': function(config){
-//	                config.headers = config.headers || {};
-//	                if(localStorage.getItem('jwt')){
-//	                    config.headers.autorizacion = localStorage.getItem('jwt');
-//	                }
-//	                return config;
-//	            },
-//	            'responseError': function(response){
-//	                if(response.status === 401 || response.status === 403 || response.status === 400){                   
-//	                   localStorage.clear();
-//	                   location.replace(urls.BASELOGIN );
-//	                   return;
-//	                }
-//	                return $q.reject(response);
-//	            }
-//	        };
-//	    }]);
 	$routeProvider
 	 .when('/menuInicio', {
  		  templateUrl: 'views/menuInicio.html',
@@ -62,7 +43,7 @@ app.run(['$rootScope','$location',function($rootScope,$location) {
         
     $rootScope.usuMaster = {usuario:"",rol:"",organizacion:""};
     $rootScope.menuPrincipal = [];
-    $rootScope.rol="";
+    $rootScope.rol=JSON.parse( window.atob(localStorage.getItem('rol')) );
     
     $rootScope.noticias = [{hora:"0:0",titulo:"noticia nueva",descripcion:"descripcion"},{hora:"0:0",titulo:"noticia nueva",descripcion:"descripcion"}];
     $rootScope.notificaciones = [];//[{tipo:"alert-info",nombre:"notificacino de alerta"},{tipo:"alert-danger",nombre:"notificacino de peligro"},{tipo:"alert-warning",nombre:"notificacino de exito"}];
@@ -79,6 +60,11 @@ app.run(['$rootScope','$location',function($rootScope,$location) {
     $rootScope.subModNom = "";
     $rootScope.visNom = "";    
     //configuracion inicial "no tocar"
+    
+    $rootScope.cerrarSession = function (){
+        localStorage.clear();
+        location.replace('/ejemplo-webapp-0.0.1-SNAPSHOT/');
+    };
     
     $rootScope.inicio = function(){
         $rootScope.menu = [];
@@ -144,33 +130,6 @@ app.run(['$rootScope','$location',function($rootScope,$location) {
             $('#modalAyuda').modal('show');
         }
     };
-   
-   
-    //comprimiendo los menus
-    //$('.sub-menu .sub').css({"display":"none"});
-    //Fin
-    /*
-    $rootScope.menu = $rootScope.menuPrincipal[0].subModulos;
-    $rootScope.modNom = $rootScope.menuPrincipal[0].nombre;*/
-    
-    
-    //funcion que se llama antes de cambiar la ruta (link)
-    /*
-    $rootScope.$on('$routeChangeStart', function(event, next, current) {
-        alert("next: "+next.templateUrl+"   current: "+current);
-        
-        if ( localStorage.getItem('jwt') == null ) {
-            $window.location.href = $window.location.href + "/";
-        }
-        else {
-            //var usuario = localStorage.getItem('usuario');
 
-            if( next.templateUrl == 'app/login.html' )
-                $window.location.href = $window.location.href + "/";
-                //(next.templateUrl == 'views/inicio.html' || usuario.puesto != 1) {
-                    //$location.path('/tareas');
-                //}
-        }
-    });*/
     
 }]);

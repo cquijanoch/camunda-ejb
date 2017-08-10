@@ -31,7 +31,7 @@ public class DigaUsuarioValidarListener implements TaskListener {
 		request.put("requerimiento", requerimiento);
 		
 		boolean estado = false;
-		if(requerimiento.getEstado().equals(Constantes.ESTADO_REQ_APROBADO)){
+		if(requerimiento.getEstado().equals("true")){
 			requerimientos.revisarAprobadoUsuarioDiga(request);
 			estado = true;
 		}
@@ -39,7 +39,7 @@ public class DigaUsuarioValidarListener implements TaskListener {
 		else{
 			requerimientos.revisarDesaprobadoUsuarioDiga(request);
 		}
-		delegateTask.setVariable("aprobado",estado);
+		delegateTask.setVariable("validado",estado);
 
 	}
 

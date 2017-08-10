@@ -10,25 +10,6 @@ app.config(['$routeProvider','$httpProvider',function($routeProvider,$httpProvid
     //reiniciando las variables
     localStorage.clear();
     
-    //interceptamos las peticiones
-    $httpProvider.interceptors.push(['$q','$location',function($q,$location){
-        return{
-            'request': function(config){
-                config.headers = config.headers || {};
-                if(localStorage.getItem('jwt')){
-                    config.headers.autorizacion = localStorage.getItem('jwt');
-                }
-                return config;
-            },
-            'responseError': function(response){
-                if(response.status === 401 || response.status === 403 || response.status === 400){                   
-                   localStorage.clear();
-                   $location.path('/');
-                }
-                return $q.reject(response);
-            }
-        };
-    }]);
     //hacemos el ruteo de nuestra aplicaciÃ³n
     $routeProvider.when("/", {
             templateUrl : "login1.html"
@@ -83,8 +64,21 @@ app.run(['$rootScope','$location','servicioLogin','urls','$routeParams', functio
             localStorage.setItem('usuario', window.btoa(JSON.stringify(response.usuario)) );//JSON.stringify({usuarioID:objResponse.usuarioID,nombre:$rootScope.usuario.nombre}) );
             localStorage.setItem('rol', window.btoa(JSON.stringify(response.rolId)) );//JSON.stringify({roldID:$rootScope.rolSel.rolId,nombre:$rootScope.rolSel.nombre}));
             
-           
-            location.replace( urls.BASECONTEXTO +"recursos/js/#personal" );
+            if(response.rolId==1)
+            {
+            	var rol="#personal";
+            } else
+            	if(response.rolId==2)
+                {
+                	var rol="#planilla";
+                } else if(response.rolId==3)
+                {
+                	var rol="#tesoreria";
+                }else if(response.rolId==4)
+                {
+                	var rol="#pagos";
+                }
+            location.replace( urls.BASECONTEXTO +"app/"+rol );
             return;
         }
         servicioLogin.mensaje("MENSAJE",response.responseMsg);
