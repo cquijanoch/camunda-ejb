@@ -1,5 +1,7 @@
 package org.unsa.camunda.impl;
 
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +10,17 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
 import org.camunda.bpm.BpmPlatform;
+import org.camunda.bpm.engine.AuthorizationException;
+import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.camunda.bpm.engine.identity.Group;
+import org.camunda.bpm.engine.impl.util.IoUtil;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
@@ -23,6 +30,8 @@ import org.unsa.dto.GroupCamundaDto;
 import org.unsa.dto.ProcessDto;
 import org.unsa.dto.TaskDto;
 import org.unsa.dto.UserCamundaDto;
+import org.unsa.dto.camunda.HistoricProcessInstanceDto;
+import org.unsa.dto.camunda.ProcessDefinitionDiagramDto;
 
 @Stateless
 public class CamundaApiImpl  implements CamundaApi {
@@ -32,6 +41,8 @@ public class CamundaApiImpl  implements CamundaApi {
 	private TaskService taskService;
 	private RepositoryService repositoryService;
 	private IdentityService identityService;
+	private HistoryService historyService;
+	
 	@PostConstruct
 	public void initialize(){
 		ProcessEngine processEngine=BpmPlatform.getProcessEngineService().getProcessEngine("default");
@@ -39,6 +50,7 @@ public class CamundaApiImpl  implements CamundaApi {
 		taskService = processEngine.getTaskService();
 		repositoryService=processEngine.getRepositoryService();
 		identityService = processEngine.getIdentityService();
+		historyService = processEngine.getHistoryService();
 	}
 
 	@Override
@@ -289,4 +301,37 @@ public class CamundaApiImpl  implements CamundaApi {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public ProcessDefinitionDiagramDto getProcessDefinitionBpmn20Xml(String processDefinitionId) {
+		InputStream processModelIn = null;
+		try {
+			processModelIn = this.repositoryService.getProcessModel(processDefinitionId);
+			byte[] processModel = IoUtil.readInputStream(processModelIn, "processModelBpmn20Xml");
+			ProcessDefinitionDiagramDto localProcessDefinitionDiagramDto = ProcessDefinitionDiagramDto
+					.create(processDefinitionId, new String(processModel, "UTF-8"));
+
+			return localProcessDefinitionDiagramDto;
+		} catch (AuthorizationException e) {
+		} catch (ProcessEngineException e) {
+		} catch (UnsupportedEncodingException e) {
+		} finally {
+			IoUtil.closeSilently(processModelIn);
+		}
+		return null;
+	}
+
+	@Override
+	public HistoricProcessInstanceDto getHistoricProcessInstance(String  processInstanceId) {
+		HistoricProcessInstance instance = (HistoricProcessInstance) historyService.createHistoricProcessInstanceQuery()
+				.processInstanceId(processInstanceId).singleResult();
+
+		if (instance == null) {
+			
+		}
+
+		return HistoricProcessInstanceDto.fromHistoricProcessInstance(instance);
+
+	}
+
 }

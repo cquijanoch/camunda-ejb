@@ -8,6 +8,8 @@ import org.unsa.dto.GroupCamundaDto;
 import org.unsa.dto.ProcessDto;
 import org.unsa.dto.TaskDto;
 import org.unsa.dto.UserCamundaDto;
+import org.unsa.dto.camunda.HistoricProcessInstanceDto;
+import org.unsa.dto.camunda.ProcessDefinitionDiagramDto;
 
 @Local
 public interface CamundaApi {
@@ -41,4 +43,8 @@ public interface CamundaApi {
 	GroupCamundaDto createGroup(GroupCamundaDto group);
 
 	void deleteGroup(String idGroup);
+	
+	ProcessDefinitionDiagramDto getProcessDefinitionBpmn20Xml(String processDefinitionId);
+	
+	HistoricProcessInstanceDto getHistoricProcessInstance(String processInstanceId);
 }
