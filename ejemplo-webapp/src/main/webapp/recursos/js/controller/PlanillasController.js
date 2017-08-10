@@ -47,7 +47,7 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 	$scope.listarRequerimientos();
 
 	/*-----------------pestaña validar usuario listar---------------------*/
-
+ 
 	var paramsUsuario = {
 		count : 10
 	};
