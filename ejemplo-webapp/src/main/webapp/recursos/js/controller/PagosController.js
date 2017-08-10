@@ -23,8 +23,18 @@ app.controller("PagosController", function($scope, UserService, modal) {
 					// modal.mensajeConfirmacion($scope,"SI INGRESO
 					// CORRECTAMENTE",function(){},400);
 					modal.mensaje("CONFIRMACION","SI INGRESO CORRECTAMENTE");
+					$scope.usuarios = {
+							nombre : "",
+							dni : "",
+							asunto : ""
+						};
 				}, function(error) {
 					alert('Error');
+					$scope.usuarios = {
+							nombre : "",
+							dni : "",
+							asunto : ""
+						};
 				});
 		
 	};

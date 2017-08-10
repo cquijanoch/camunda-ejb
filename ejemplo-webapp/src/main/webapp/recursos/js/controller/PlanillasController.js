@@ -14,8 +14,9 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 
 		UserService.getAll("resources/expedientesDiga", null).then(
 				function(response) {
-					var tareasProceso = response.body.task;
+					var tareasProceso = response.body.task !== null?response.body.task:[];
 					settingRequerimientos.dataset = [];
+					
 					for (var i = 0; i < tareasProceso.length; i++) {
 						
 						var header = tareasProceso[i].headerDto;
@@ -60,7 +61,7 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 
 		UserService.getAll("resources/expedientesDiga/validarUsuario", null).then(
 				function(response) {
-					var tareasProcesoVU = response.body.task;
+					var tareasProcesoVU = response.body.task !== null?response.body.task:[];
 					settingUsuario.dataset = [];
 					
 					for (var i = 0; i < tareasProcesoVU.length; i++) {
@@ -128,7 +129,7 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 				}, function(error) {
 					alert('Error al guardar requerimiento');
 				});
-		console.log($scope.request.header);
+		
 	};
 
 	// aprobar usuarios
