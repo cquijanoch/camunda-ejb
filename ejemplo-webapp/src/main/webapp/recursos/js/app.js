@@ -5,9 +5,28 @@ var app= angular.module("demoApp",[
 
 
 app.config(function($routeProvider){
+	
+//	 $httpProvider.interceptors.push(['$q','urls',function($q,urls){
+//	        return{
+//	            'request': function(config){
+//	                config.headers = config.headers || {};
+//	                if(localStorage.getItem('jwt')){
+//	                    config.headers.autorizacion = localStorage.getItem('jwt');
+//	                }
+//	                return config;
+//	            },
+//	            'responseError': function(response){
+//	                if(response.status === 401 || response.status === 403 || response.status === 400){                   
+//	                   localStorage.clear();
+//	                   location.replace(urls.BASELOGIN );
+//	                   return;
+//	                }
+//	                return $q.reject(response);
+//	            }
+//	        };
+//	    }]);
 	$routeProvider
 	 .when('/menuInicio', {
-   	  	  controller: 'UserController',
  		  templateUrl: 'views/menuInicio.html',
      })
      .when("/subMenuInicio", {
@@ -22,7 +41,7 @@ app.config(function($routeProvider){
          templateUrl : 'views/usuario.html'//usuario
      })
      .when('/planilla', {
-    	 controller: 'PlanillaController',
+    	 controller: 'PlanillasController',
          templateUrl : 'views/diga.html'//diga
      })
      .when('/tesoreria', {

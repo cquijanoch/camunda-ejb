@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 
 import org.unsa.common.dao.LoginDao;
 import org.unsa.dto.RolDto;
+import org.unsa.dto.SessionDto;
 import org.unsa.dto.UserDto;
 import org.unsa.identity.TokenAuthentication;
 import org.unsa.identity.TokenHandler;
@@ -41,8 +42,10 @@ public class LoginBusinessImpl implements LoginBusiness {
 			throw new NullPointerException();
 		}
 		Map<String,Object> response=new HashMap<String, Object>();
-		response.put("usuario", usuario);
-		response.put("jwt", TokenHandler.getInstance().createTokenForUser(usuario));
+		SessionDto session=new SessionDto();
+		session.setJwt(TokenHandler.getInstance().createTokenForUser(usuario));
+		session.setUsuario(usuario);
+		response.put("permisos", session);
 		return response;
 	}
 	@Override

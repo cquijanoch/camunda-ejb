@@ -78,27 +78,13 @@ app.run(['$rootScope','$location','servicioLogin','urls','$routeParams', functio
 
     function succesIniciarSession(response){
         $rootScope.bloquear=false;
-        if( response.responseSta ){
-            var objResponse = response.data;
-            localStorage.setItem('jwt', objResponse.jwt);
-            localStorage.setItem('usuario', window.btoa(JSON.stringify(objResponse.usuario)) );//JSON.stringify({usuarioID:objResponse.usuarioID,nombre:$rootScope.usuario.nombre}) );
-            localStorage.setItem('rol', window.btoa(JSON.stringify(objResponse.rol)) );//JSON.stringify({roldID:$rootScope.rolSel.rolId,nombre:$rootScope.rolSel.nombre}));
+        if( response.usuario!=null ){
+            localStorage.setItem('jwt', response.jwt);
+            localStorage.setItem('usuario', window.btoa(JSON.stringify(response.usuario)) );//JSON.stringify({usuarioID:objResponse.usuarioID,nombre:$rootScope.usuario.nombre}) );
+            localStorage.setItem('rol', window.btoa(JSON.stringify(response.rolId)) );//JSON.stringify({roldID:$rootScope.rolSel.rolId,nombre:$rootScope.rolSel.nombre}));
             
-            
-            var funciones = [[],[],[],[],[],[]];
-            objResponse.modulos.forEach(function(item){
-                item.color = colores[item.moduloID-1];
-                item.subModulos.forEach(function(sub){
-                    sub.color = colores[sub.subModuloID-1];
-                    sub.funciones.forEach(function(fun){
-                        fun.color = colores[sub.subModuloID-1];
-                        funciones[fun.tipo].push(fun);
-                    });
-                });                
-            });
-            localStorage.setItem('modulos', JSON.stringify(objResponse.modulos));
-            localStorage.setItem('funciones', JSON.stringify(funciones));
-            location.replace( urls.BASECONTEXTO + objResponse.url+"#menuInicio" );
+           
+            location.replace( urls.BASECONTEXTO +"recursos/js/#personal" );
             return;
         }
         servicioLogin.mensaje("MENSAJE",response.responseMsg);
@@ -162,56 +148,3 @@ app.run(['$rootScope','$location','servicioLogin','urls','$routeParams', functio
     
 
 }]);
-
-/* Claves del REQUEST*/
-KEY_REQUEST_STR = "i.type";
-REQUEST_STR = "inet-req";
-REQUEST_ID_STR = "cmd";
-REQUEST_IDENTITY_STR = "identity";
-REQUEST_SCOPE_STR = "scope";
-REQUEST_META_STR = "meta";
-REQUEST_DATA_STR = "data";
-
-function Request(identity,scope){
-
-    this[KEY_REQUEST_STR] = REQUEST_STR;
-    this[REQUEST_SCOPE_STR] = scope;
-    this[REQUEST_IDENTITY_STR] = identity;
-    this[REQUEST_META_STR] = new Object();
-
-    this.getCmd = function(){
-        return this.mCurrendCommand;    
-    };
-    this.setCmd = function(dominio,version,accion){
-        this[REQUEST_ID_STR] = dominio+"@"+version+":"+accion;
-    };
-    this.getIdentity = function(){
-        return this.mIdentity;
-    };
-    this.setIdentity = function(identity){
-        this[REQUEST_IDENTITY_STR] = identity;
-    };
-    this.getScope = function(){
-        return this.mScope;
-    };
-    this.setScope = function(scope){
-        this[REQUEST_SCOPE_STR] = scope;
-    };
-    this.getData = function(){
-        return this.mData;
-    };
-    this.setData = function(data){
-        this[REQUEST_DATA_STR] = data;
-    };
-    this.getMetadata = function(){
-        return this[REQUEST_META_STR];
-    };
-    this.setMetadataValue = function(key,value){
-        if(!(value instanceof Array))
-            this[REQUEST_META_STR][key] = [value];
-    };    
-    this.setMetadataValues = function(key,values){
-        if(values instanceof Array)
-            this[REQUEST_META_STR][key] = values;
-    };
-};

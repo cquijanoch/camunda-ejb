@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import org.unsa.business.LoginBusiness;
 import org.unsa.dto.RolDto;
 import org.unsa.dto.UserDto;
+import org.unsa.dto.SessionDto;
 
 import java.util.List;
 
@@ -33,11 +34,11 @@ public class Login {
 	
 	@POST
 	@Path("signin")
-	public List<RolDto> signin(UserDto user) {
+	public SessionDto signin(UserDto user) {
 
-		List<RolDto> roles=(List<RolDto>) login.identityUser(user.getNombre(),user.getPassword()).get("permisos");
-		
-		return roles;
+		SessionDto session=(SessionDto) login.identityUser(user.getNombre(),user.getPassword()).get("permisos");
+		session.setRolId(user.getRolId());
+		return session;
 	}
 
 	@HEAD

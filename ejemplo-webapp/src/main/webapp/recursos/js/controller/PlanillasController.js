@@ -1,4 +1,4 @@
-app.controller("PlanillaController", function($scope, UserService, modal,
+app.controller("PlanillasController", function($scope, UserService, modal,
 		NgTableParams) {
 
 	var paramsRequerimientos = {
