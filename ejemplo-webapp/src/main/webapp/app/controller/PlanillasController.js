@@ -10,11 +10,11 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 	$scope.tabla1 = new NgTableParams(paramsRequerimientos,
 			settingRequerimientos);
 
-	$scope.listarRequerimientos = function() {
+	$scope.listar1 = function() {
 
 		UserService.getAll("resources/expedientesDiga", null).then(
 				function(response) {
-					var tareasProceso = response.body.task;
+					var tareasProceso = response.body.task !==null ?response.body.task:[];
 					settingRequerimientos.dataset = [];
 					for (var i = 0; i < tareasProceso.length; i++) {
 						
@@ -44,7 +44,7 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 				});
 
 	};
-	$scope.listarRequerimientos();
+	
 
 	/*-----------------pestaña validar usuario listar---------------------*/
  
@@ -56,11 +56,11 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 	};
 	$scope.tabla2 = new NgTableParams(paramsUsuario, settingUsuario);
 
-	$scope.listarUsuarios = function() {
+	$scope.listar2 = function() {
 
 		UserService.getAll("resources/expedientesDiga/validarUsuario", null).then(
 				function(response) {
-					var tareasProcesoVU = response.body.task;
+					var tareasProcesoVU = response.body.task !== null?response.body.task:[];
 					settingUsuario.dataset = [];
 					
 					for (var i = 0; i < tareasProcesoVU.length; i++) {
@@ -89,7 +89,7 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 				});
 	};
 
-	$scope.listarUsuarios();
+	
 
 	$scope.reqActual = {};
 
@@ -128,7 +128,7 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 				}, function(error) {
 					alert('Error al guardar requerimiento');
 				});
-		console.log($scope.request.header);
+		
 	};
 
 	// aprobar usuarios

@@ -31,7 +31,7 @@ public class DigaUsuarioValidarListener implements TaskListener {
 		request.put("requerimiento", requerimiento);
 		
 		boolean estado = false;
-		if(requerimiento.getEstado().equals("true")){
+		if(requerimiento.getEstado().equals(Constantes.ESTADO_REQ_APROBADO)){
 			requerimientos.revisarAprobadoUsuarioDiga(request);
 			estado = true;
 		}

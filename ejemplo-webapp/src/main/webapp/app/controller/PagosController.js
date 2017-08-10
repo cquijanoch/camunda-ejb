@@ -30,11 +30,7 @@ app.controller("PagosController", function($scope, UserService, modal) {
 						};
 				}, function(error) {
 					alert('Error');
-					$scope.usuarios = {
-							nombre : "",
-							dni : "",
-							asunto : ""
-						};
+					
 				});
 		
 	};
