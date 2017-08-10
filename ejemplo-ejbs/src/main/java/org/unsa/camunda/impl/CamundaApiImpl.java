@@ -8,17 +8,21 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
 import org.camunda.bpm.BpmPlatform;
+import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
 import org.unsa.camunda.CamundaApi;
+import org.unsa.dto.GroupCamundaDto;
 import org.unsa.dto.ProcessDto;
 import org.unsa.dto.TaskDto;
+import org.unsa.dto.UserCamundaDto;
 
 @Stateless
 public class CamundaApiImpl  implements CamundaApi {
@@ -27,13 +31,14 @@ public class CamundaApiImpl  implements CamundaApi {
 	private RuntimeService runtimeService;
 	private TaskService taskService;
 	private RepositoryService repositoryService;
-	
+	private IdentityService identityService;
 	@PostConstruct
 	public void initialize(){
 		ProcessEngine processEngine=BpmPlatform.getProcessEngineService().getProcessEngine("default");
 		runtimeService= processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
 		repositoryService=processEngine.getRepositoryService();
+		identityService = processEngine.getIdentityService();
 	}
 
 	@Override
@@ -239,5 +244,49 @@ public class CamundaApiImpl  implements CamundaApi {
 		return taskDtoList;
 
 	}
+	
+	@Override
+	public boolean verificarPassword(UserCamundaDto user) {
+		boolean verificado;
+		List<GroupCamundaDto> ListaGrupos = null;
 
+		verificado = identityService.checkPassword(user.getIdUsuario(), user.getPassword());
+		if (verificado == true) {
+			List<Group> roles = identityService.createGroupQuery().groupMember(user.getIdUsuario()).list();
+			ListaGrupos = new ArrayList<GroupCamundaDto>();
+			
+			for (Group groupIndex : roles) {
+				GroupCamundaDto grupo = new GroupCamundaDto();
+				grupo.setIdGroup(groupIndex.getId());
+				grupo.setNameGroup(groupIndex.getName());
+				ListaGrupos.add(grupo);
+			}
+			user.setGrupos(ListaGrupos);
+		}
+		return verificado;
+	}
+
+	@Override
+	public UserCamundaDto createUser(UserCamundaDto user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(String idUser) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public GroupCamundaDto createGroup(GroupCamundaDto group) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteGroup(String idGroup) {
+		// TODO Auto-generated method stub
+
+	}
 }

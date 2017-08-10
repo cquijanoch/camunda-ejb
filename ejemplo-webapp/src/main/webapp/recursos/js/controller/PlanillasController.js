@@ -160,7 +160,6 @@ app.controller("PlanillasController", function($scope, UserService, modal,
 		            }
 		};
 		
-
 		UserService.add("resources/expedientesDiga/validarUsuario",request).then(
 				function(response) {
 					modal.mensaje("CONFIRMACION", "SE APROBO CORRECTAMENTE");
