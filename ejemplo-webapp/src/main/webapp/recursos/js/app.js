@@ -21,8 +21,8 @@ app.config(function($routeProvider){
     	 controller: 'PagosController',
          templateUrl : 'views/usuario.html'//usuario
      })
-     .when('/planillas', {
-    	 controller: 'PlanillasController',
+     .when('/planilla', {
+    	 controller: 'PlanillaController',
          templateUrl : 'views/diga.html'//diga
      })
      .when('/tesoreria', {

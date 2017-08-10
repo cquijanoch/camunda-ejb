@@ -57,10 +57,8 @@ public class LoginDao extends GeneralDao {
 		try{
 			LoginMapper mapper = sqlSession.getMapper(LoginMapper.class);
 			User obj=new User();
-			HashMap<String, Object> values = new HashMap<String, Object>();
-		    values.put("nickname", nickname);
-		    values.put("password", password);
-			obj=  mapper.getUserByNickAndPass(values);
+			
+			obj=  mapper.getUserByNickAndPass(nickname,password);
 			
 			response.setId(obj.getId());
 			response.setNombre(obj.getNickname());

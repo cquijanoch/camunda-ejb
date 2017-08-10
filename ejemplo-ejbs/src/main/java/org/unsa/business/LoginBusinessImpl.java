@@ -36,7 +36,7 @@ public class LoginBusinessImpl implements LoginBusiness {
 	@Override
 	public Map<String, Object> identityUser(String nickname,String password) {
 		UserDto usuario=loginDao.identityUser(nickname,password);
-		if(usuario==null)
+		if(usuario.getId()==0)
 		{
 			throw new NullPointerException();
 		}

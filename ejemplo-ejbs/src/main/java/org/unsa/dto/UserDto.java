@@ -9,6 +9,7 @@ public class UserDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
+	private int rolId;
 	private String nombre;
 	private String password;
 	private String dni;
@@ -48,5 +49,14 @@ public class UserDto implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public int getRolId() {
+		return rolId;
+	}
+
+	public void setRolId(int rolId) {
+		this.rolId = rolId;
+	}
+	
 
 }
