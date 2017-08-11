@@ -18,10 +18,12 @@ import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.history.HistoricActivityInstance;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.impl.util.IoUtil;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.runtime.ActivityInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
@@ -30,6 +32,8 @@ import org.unsa.dto.GroupCamundaDto;
 import org.unsa.dto.ProcessDto;
 import org.unsa.dto.TaskDto;
 import org.unsa.dto.UserCamundaDto;
+import org.unsa.dto.camunda.ActivityInstanceDto;
+import org.unsa.dto.camunda.HistoricActivityInstanceDto;
 import org.unsa.dto.camunda.HistoricProcessInstanceDto;
 import org.unsa.dto.camunda.ProcessDefinitionDiagramDto;
 
@@ -331,6 +335,52 @@ public class CamundaApiImpl  implements CamundaApi {
 		}
 
 		return HistoricProcessInstanceDto.fromHistoricProcessInstance(instance);
+
+	}
+	
+	@Override
+	public List<HistoricActivityInstanceDto> getHistoricActivityInstance(String processInstanceId){
+		List<HistoricActivityInstance> instances =  historyService
+				.createHistoricActivityInstanceQuery()
+				.processInstanceId(processInstanceId)
+				.list();
+		
+		List<HistoricActivityInstanceDto> response= new ArrayList<HistoricActivityInstanceDto>();
+
+		if (instances == null) {
+//			throw new InvalidRequestException(Response.Status.NOT_FOUND,
+//					"Historic activity instance with id '" + this.activityInstanceId + "' does not exist");
+		}
+		
+		for (HistoricActivityInstance instance : instances){
+			response.add(HistoricActivityInstanceDto.fromHistoricActivityInstance(instance));
+		}
+		
+
+		return  response;
+	}
+
+	
+
+	@Override
+	public ActivityInstanceDto getActivityInstanceTree(String processInstanceId) {
+
+		ActivityInstance activityInstance = null;
+		try {
+			activityInstance = runtimeService.getActivityInstance(processInstanceId);
+		} catch (AuthorizationException e) {
+			throw e;
+		} catch (ProcessEngineException e) {
+//			throw new InvalidRequestException(Response.Status.INTERNAL_SERVER_ERROR, e, e.getMessage());
+		}
+
+		if (activityInstance == null) {
+//			throw new InvalidRequestException(Response.Status.NOT_FOUND,
+//					"Process instance with id " + processInstanceId + " does not exist");
+		}
+
+		ActivityInstanceDto result = ActivityInstanceDto.fromActivityInstance(activityInstance);
+		return result;
 
 	}
 

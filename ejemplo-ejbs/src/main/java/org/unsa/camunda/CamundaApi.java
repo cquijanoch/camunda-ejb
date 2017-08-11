@@ -8,6 +8,8 @@ import org.unsa.dto.GroupCamundaDto;
 import org.unsa.dto.ProcessDto;
 import org.unsa.dto.TaskDto;
 import org.unsa.dto.UserCamundaDto;
+import org.unsa.dto.camunda.ActivityInstanceDto;
+import org.unsa.dto.camunda.HistoricActivityInstanceDto;
 import org.unsa.dto.camunda.HistoricProcessInstanceDto;
 import org.unsa.dto.camunda.ProcessDefinitionDiagramDto;
 
@@ -47,4 +49,8 @@ public interface CamundaApi {
 	ProcessDefinitionDiagramDto getProcessDefinitionBpmn20Xml(String processDefinitionId);
 	
 	HistoricProcessInstanceDto getHistoricProcessInstance(String processInstanceId);
+	
+	List<HistoricActivityInstanceDto> getHistoricActivityInstance(String processInstanceId);
+	
+	 ActivityInstanceDto getActivityInstanceTree(String processInstanceId) ;
 }

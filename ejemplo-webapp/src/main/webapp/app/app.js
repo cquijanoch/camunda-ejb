@@ -21,13 +21,17 @@ app.config(function($routeProvider){
     	 controller: 'PagosController',
          templateUrl : 'views/usuario.html'//usuario
      })
-     .when('/planilla', {
+     .when('/planillas', {
     	 controller: 'PlanillasController',
          templateUrl : 'views/diga.html'//diga
      })
      .when('/tesoreria', {
     	 controller: 'TesoreriaController',
          templateUrl : 'views/tesoreria.html'//tesoreria
+     })
+     .when('/proceso/:processInstanceId', {
+    	 controller: 'ProcesoController',
+         templateUrl : 'views/proceso.html'//tesoreria
      })
      .otherwise( {
          redirectTo: '/'
