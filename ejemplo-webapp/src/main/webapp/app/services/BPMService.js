@@ -10,7 +10,7 @@ app.service("BPMService",function(){
 			}
 			for (index=0; index < actInstTree.childActivityInstances.length; ++index) {
 			    // add recursively
-				addMarkerForActivities(canvas, actInstTree.childActivityInstances[index]);	
+				this.addMarkerForActivities(canvas, actInstTree.childActivityInstances[index]);	
 			}
 		}
 	};
