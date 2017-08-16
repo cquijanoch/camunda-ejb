@@ -21,6 +21,7 @@ import org.unsa.dto.UserTaskDto;
 import org.unsa.message.GetTaskDto;
 import org.unsa.message.RequestMessage;
 import org.unsa.message.ResponseMessage;
+import org.unsa.util.BPM;
 
 @Stateless
 @Path("registrarRequerimiento")
@@ -38,7 +39,7 @@ public class RequerimientoController {
 		RequerimientoDto requerimiento = request.getBody();
 		
 		ProcessDto processDto = new ProcessDto();
-		processDto.setProcessDefinitionKey("Proceso2dfase");
+		processDto.setProcessDefinitionKey(BPM.PROCESO_PAGO);
 		camundaApi.createProcess(processDto);
 
 		List<TaskDto> activeTasks = camundaApi.getTaskByProcessInstance(processDto);
@@ -77,7 +78,7 @@ public class RequerimientoController {
 	@GET
 	public ResponseMessage<GetTaskDto<ReqMesaPartesDto>> getAllRequeriment(){
 		
-		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId("task_review_req", "Proceso2dfase");
+		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId(BPM.MP_REQ_REVISAR, BPM.PROCESO_PAGO);
 		
 		ResponseMessage<GetTaskDto<ReqMesaPartesDto>> response = new ResponseMessage<GetTaskDto<ReqMesaPartesDto>>();
 		GetTaskDto<ReqMesaPartesDto> body = new GetTaskDto<ReqMesaPartesDto>();

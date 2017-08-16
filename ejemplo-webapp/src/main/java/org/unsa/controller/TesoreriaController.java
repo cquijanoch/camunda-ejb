@@ -18,6 +18,7 @@ import org.unsa.message.GetTaskDto;
 import org.unsa.message.RequestMessage;
 import org.unsa.message.ResponseMessage;
 import org.unsa.mybatis.bean.Contoh;
+import org.unsa.util.BPM;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class TesoreriaController {
     @GET
 	public ResponseMessage<GetTaskDto<RequerimientoDto>> getAllRequeriment(){
 		
-		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId("Task_1bjgork", "Proceso2dfase");
+		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId(BPM.TESORERIA_PAG_SELECCIONAR, BPM.PROCESO_PAGO);
 		
 		ResponseMessage<GetTaskDto<RequerimientoDto>> response = new ResponseMessage<GetTaskDto<RequerimientoDto>>();
 		GetTaskDto<RequerimientoDto> body = new GetTaskDto<RequerimientoDto>();
@@ -68,7 +69,7 @@ public class TesoreriaController {
     @Path("/pagoscheques")
 	public ResponseMessage<GetTaskDto<RequerimientoDto>> getAllRequeriment2(){
 		
-		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId("Task_0zaqvg2", "Proceso2dfase");
+		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId(BPM.TESORERIA_PAG_CHEQUE, BPM.PROCESO_PAGO);
 		
 		ResponseMessage<GetTaskDto<RequerimientoDto>> response = new ResponseMessage<GetTaskDto<RequerimientoDto>>();
 		GetTaskDto<RequerimientoDto> body = new GetTaskDto<RequerimientoDto>();	
@@ -95,7 +96,7 @@ public class TesoreriaController {
     @Path("/depositoCuenta")
 	public ResponseMessage<GetTaskDto<RequerimientoDto>> getAllRequeriment3(){
 		
-		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId("Task_1s84s7j", "Proceso2dfase");
+		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId(BPM.TESORERIA_PAG_CUENTA, BPM.PROCESO_PAGO);
 		
 		ResponseMessage<GetTaskDto<RequerimientoDto>> response = new ResponseMessage<GetTaskDto<RequerimientoDto>>();
 		GetTaskDto<RequerimientoDto> body = new GetTaskDto<RequerimientoDto>();

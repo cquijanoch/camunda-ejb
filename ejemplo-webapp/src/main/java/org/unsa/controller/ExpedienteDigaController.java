@@ -18,6 +18,7 @@ import org.unsa.dto.UserTaskDto;
 import org.unsa.message.GetTaskDto;
 import org.unsa.message.RequestMessage;
 import org.unsa.message.ResponseMessage;
+import org.unsa.util.BPM;
 
 
 
@@ -54,7 +55,7 @@ public class ExpedienteDigaController {
 
 	@GET
 	public ResponseMessage<GetTaskDto<ReqMesaPartesDto>> getAllRequerimientosDIGA() {
-		List<TaskDto> activeTasksRR = camundaApi.getTaskByTaskId("task_review_req_diga", "Proceso2dfase");
+		List<TaskDto> activeTasksRR = camundaApi.getTaskByTaskId(BPM.DIGA_REQ_REVISAR,BPM.PROCESO_PAGO);
 
 		ResponseMessage<GetTaskDto<ReqMesaPartesDto>> response = new ResponseMessage<GetTaskDto<ReqMesaPartesDto>>();
 		GetTaskDto<ReqMesaPartesDto> body = new GetTaskDto<ReqMesaPartesDto>();
@@ -100,7 +101,7 @@ public class ExpedienteDigaController {
 	@GET
 	@Path("/validarUsuario")
 	public ResponseMessage<GetTaskDto<ReqMesaPartesDto>> getAllUsuariosDIGA() {
-		List<TaskDto> activeTasksVU = camundaApi.getTaskByTaskId("Task_1411tui", "Proceso2dfase");
+		List<TaskDto> activeTasksVU = camundaApi.getTaskByTaskId(BPM.DIGA_USU_VALIDAR, BPM.PROCESO_PAGO);
 
 		ResponseMessage<GetTaskDto<ReqMesaPartesDto>> response = new ResponseMessage<GetTaskDto<ReqMesaPartesDto>>();
 		GetTaskDto<ReqMesaPartesDto> body = new GetTaskDto<ReqMesaPartesDto>();

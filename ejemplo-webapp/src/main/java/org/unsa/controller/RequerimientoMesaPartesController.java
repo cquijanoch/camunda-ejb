@@ -21,6 +21,7 @@ import org.unsa.dto.UserTaskDto;
 import org.unsa.message.GetTaskDto;
 import org.unsa.message.RequestMessage;
 import org.unsa.message.ResponseMessage;
+import org.unsa.util.BPM;
 
 @Stateless
 @Path("/mesapartes")
@@ -55,11 +56,8 @@ public class RequerimientoMesaPartesController {
 	@Path("/bandejaAprobados")
 	public ResponseMessage<GetTaskDto<ReqMesaPartesDto>> getAllRequeriment() {
 		
-		String keyProcess = "Proceso2dfase";
-		String keySubprocess = "RegistrarReq";
-		String keyTask = "Task_169u5wo";
 		
-		List<TaskDto> activeTasks = camundaApi.getActiveTaskBySubProcess(keyProcess,keySubprocess,keyTask);
+		List<TaskDto> activeTasks = camundaApi.getActiveTaskBySubProcess(BPM.PROCESO_PAGO,BPM.PROCESO_REQ_REG,BPM.MP_REQ_INGRESAR);
 		
 		ResponseMessage<GetTaskDto<ReqMesaPartesDto>> response = new ResponseMessage<GetTaskDto<ReqMesaPartesDto>>();
 		GetTaskDto<ReqMesaPartesDto> body = new GetTaskDto<ReqMesaPartesDto>();
@@ -112,7 +110,7 @@ public class RequerimientoMesaPartesController {
 	@GET
 	public ResponseMessage<GetTaskDto<ReqMesaPartesDto>> getAll(){
 		
-		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId("task_review_req", "Proceso2dfase");
+		List<TaskDto> activeTasks = camundaApi.getTaskByTaskId(BPM.MP_REQ_REVISAR, BPM.PROCESO_PAGO);
 		
 		ResponseMessage<GetTaskDto<ReqMesaPartesDto>> response = new ResponseMessage<GetTaskDto<ReqMesaPartesDto>>();
 		GetTaskDto<ReqMesaPartesDto> body = new GetTaskDto<ReqMesaPartesDto>();
