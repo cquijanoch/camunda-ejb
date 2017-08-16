@@ -5,6 +5,9 @@
         <dependent-module archiveName="ejemplo-ejbs-0.0.1-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ejemplo-ejbs/ejemplo-ejbs">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="camunda-lib-0.0.1-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/camunda-lib/camunda-lib">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="ejemplo-webapp-0.0.1-SNAPSHOT.war" deploy-path="/" handle="module:/resource/ejemplo-webapp/ejemplo-webapp">
             <dependency-type>uses</dependency-type>
         </dependent-module>

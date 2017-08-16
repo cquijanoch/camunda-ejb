@@ -24,7 +24,10 @@
                             <groupId>${project.groupId}</groupId>
                             <artifactId>ejemplo-ejbs</artifactId>
                         </ejbModule>
-                        
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>camunda-lib</artifactId>
+                        </ejbModule>
                         <webModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>ejemplo-webapp</artifactId>
@@ -39,6 +42,12 @@
     <dependencies>
         <dependency>
             <artifactId>ejemplo-ejbs</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <artifactId>camunda-lib</artifactId>
             <groupId>${project.groupId}</groupId>
             <version>${project.version}</version>
             <type>ejb</type>

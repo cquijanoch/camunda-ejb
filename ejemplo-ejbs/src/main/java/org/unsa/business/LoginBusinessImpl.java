@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import org.unsa.camunda.CamundaApi;
+
 import org.unsa.common.dao.LoginDao;
 import org.unsa.dto.RolDto;
 import org.unsa.dto.SessionDto;

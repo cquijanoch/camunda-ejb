@@ -7,7 +7,9 @@
     <module>
         <ejb>ejemplo-ejbs-0.0.1-SNAPSHOT.jar</ejb>
     </module>
-   
+    <module>
+        <ejb>camunda-lib-0.0.1-SNAPSHOT.jar</ejb>
+    </module>
     <module>
         <web>
             <web-uri>ejemplo-webapp-0.0.1-SNAPSHOT.war</web-uri>

@@ -9,6 +9,7 @@
         <module>ejemplo-ejbs</module>
         <module>ejemplo-webapp</module>
         <module>ejemplo-ear</module>
+        <module>camunda-lib</module>
     </modules>
 
     <build>

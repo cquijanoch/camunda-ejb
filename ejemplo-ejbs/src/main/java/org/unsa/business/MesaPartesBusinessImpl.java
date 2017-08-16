@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import org.unsa.camunda.CamundaApi;
 import org.unsa.common.dao.MesaPartesDao;
 import org.unsa.dto.ReqMesaPartesDto;
 import org.unsa.dto.UsuarioDto;
