@@ -29,8 +29,12 @@ app.config(function($routeProvider){
     	 controller: 'TesoreriaController',
          templateUrl : 'views/tesoreria.html'//tesoreria
      })
-     .when('/proceso/:processInstanceId', {
+     .when('/procesos', {
     	 controller: 'ProcesoController',
+         templateUrl : 'views/procesos.html'//tesoreria
+     })
+     .when('/proceso/:processInstanceId', {
+    	 controller: 'ProcesosController',
          templateUrl : 'views/proceso.html'//tesoreria
      })
      .otherwise( {
