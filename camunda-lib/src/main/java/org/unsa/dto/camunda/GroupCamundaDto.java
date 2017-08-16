@@ -1,4 +1,4 @@
-package org.unsa.dto;
+package org.unsa.dto.camunda;
 
 public class GroupCamundaDto {
 	private String idGroup;

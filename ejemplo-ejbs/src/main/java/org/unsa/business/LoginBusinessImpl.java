@@ -8,14 +8,16 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-
+import org.unsa.camunda.CamundaApi;
 import org.unsa.common.dao.LoginDao;
 import org.unsa.dto.RolDto;
 import org.unsa.dto.SessionDto;
-import org.unsa.dto.UserCamundaDto;
 import org.unsa.dto.UserDto;
+import org.unsa.dto.camunda.UserCamundaDto;
 import org.unsa.identity.TokenAuthentication;
 import org.unsa.identity.TokenHandler;
+
+
 
 @Stateless
 public class LoginBusinessImpl implements LoginBusiness {

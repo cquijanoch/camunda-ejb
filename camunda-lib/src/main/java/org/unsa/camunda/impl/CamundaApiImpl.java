@@ -28,14 +28,14 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
 import org.unsa.camunda.CamundaApi;
-import org.unsa.dto.GroupCamundaDto;
-import org.unsa.dto.ProcessDto;
-import org.unsa.dto.TaskDto;
-import org.unsa.dto.UserCamundaDto;
 import org.unsa.dto.camunda.ActivityInstanceDto;
+import org.unsa.dto.camunda.GroupCamundaDto;
 import org.unsa.dto.camunda.HistoricActivityInstanceDto;
 import org.unsa.dto.camunda.HistoricProcessInstanceDto;
 import org.unsa.dto.camunda.ProcessDefinitionDiagramDto;
+import org.unsa.dto.camunda.ProcessDto;
+import org.unsa.dto.camunda.TaskDto;
+import org.unsa.dto.camunda.UserCamundaDto;
 
 @Stateless
 public class CamundaApiImpl  implements CamundaApi {

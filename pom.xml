@@ -8,8 +8,8 @@
     <modules>
         <module>ejemplo-ejbs</module>
         <module>ejemplo-webapp</module>
-        <module>ejemplo-ear</module>
         <module>camunda-lib</module>
+        <module>ejemplo-ear</module>
     </modules>
 
     <build>

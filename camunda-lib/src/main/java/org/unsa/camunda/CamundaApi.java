@@ -4,14 +4,15 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import org.unsa.dto.GroupCamundaDto;
-import org.unsa.dto.ProcessDto;
-import org.unsa.dto.TaskDto;
-import org.unsa.dto.UserCamundaDto;
+
 import org.unsa.dto.camunda.ActivityInstanceDto;
+import org.unsa.dto.camunda.GroupCamundaDto;
 import org.unsa.dto.camunda.HistoricActivityInstanceDto;
 import org.unsa.dto.camunda.HistoricProcessInstanceDto;
 import org.unsa.dto.camunda.ProcessDefinitionDiagramDto;
+import org.unsa.dto.camunda.ProcessDto;
+import org.unsa.dto.camunda.TaskDto;
+import org.unsa.dto.camunda.UserCamundaDto;
 
 @Local
 public interface CamundaApi {

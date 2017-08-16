@@ -5,7 +5,7 @@ import javax.ejb.EJB;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.unsa.camunda.CamundaApi;
-import org.unsa.dto.ProcessDto;
+import org.unsa.dto.camunda.ProcessDto;
 
 public abstract class CamundaExecution implements JavaDelegate {
 	

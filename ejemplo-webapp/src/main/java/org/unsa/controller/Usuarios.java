@@ -11,9 +11,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import org.unsa.business.UsuarioBusiness;
-import org.unsa.dto.ProcessDto;
 import org.unsa.dto.RequerimientoDto;
 import org.unsa.dto.UsuarioDto;
+import org.unsa.dto.camunda.ProcessDto;
 
 @Stateless
 @Path("registrarUsuario")

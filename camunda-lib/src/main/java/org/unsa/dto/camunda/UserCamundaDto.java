@@ -1,4 +1,4 @@
-package org.unsa.dto;
+package org.unsa.dto.camunda;
 
 import java.util.List;
 

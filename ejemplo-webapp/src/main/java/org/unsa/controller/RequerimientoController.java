@@ -13,11 +13,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.unsa.camunda.CamundaApi;
 import org.unsa.dto.HeaderDto;
-import org.unsa.dto.ProcessDto;
 import org.unsa.dto.ReqMesaPartesDto;
 import org.unsa.dto.RequerimientoDto;
-import org.unsa.dto.TaskDto;
 import org.unsa.dto.UserTaskDto;
+import org.unsa.dto.camunda.ProcessDto;
+import org.unsa.dto.camunda.TaskDto;
 import org.unsa.message.GetTaskDto;
 import org.unsa.message.RequestMessage;
 import org.unsa.message.ResponseMessage;
